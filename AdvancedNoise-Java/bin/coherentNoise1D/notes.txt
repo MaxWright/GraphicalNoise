@@ -1,0 +1,25 @@
+// Octaves
+	private PerlinNoise1D perlin1Da = new PerlinNoise1D(10,1000);
+	private PerlinNoise1D perlin1Db = new PerlinNoise1D(20,1000);
+	private PerlinNoise1D perlin1Dc = new PerlinNoise1D(40,1000);
+	private PerlinNoise1D perlin1Dd = new PerlinNoise1D(80,1000);
+// True Perlin Noise
+	double temp = perlin1Da.getNoise(i) + perlin1Db.getNoise(i) / 2 + perlin1Dc.getNoise(i) / 4 + perlin1D.getNoise(i) / 8;
+// Persistence
+
+
+Frequency: The amount of peaks and valleys in a unit.
+Octaves: Other noises are calculated by adding multiple octaves together to form that noise. Each octave has twice the frequency of the previous octave. A coherent noise only has one octave.
+Persistence: A multiplier to determine how quickly the amplitude decreases per octave.
+
+So, in code:
+
+// Double the frequency by adjusting the length of each section.
+// Four octaves
+// private PerlinNoise1D perlin1Da = new PerlinNoise1D(<Number of Sections>,<Total Length>);
+private PerlinNoise1D perlin1Da = new PerlinNoise1D(10,1000);
+private PerlinNoise1D perlin1Db = new PerlinNoise1D(20,1000);
+private PerlinNoise1D perlin1Dc = new PerlinNoise1D(40,1000);
+private PerlinNoise1D perlin1Dd = new PerlinNoise1D(80,1000);
+// Persistence = .5
+double temp = perlin1Da.getNoise(i) + perlin1Db.getNoise(i) / 2 + perlin1Dc.getNoise(i) / 4 + perlin1D.getNoise(i) / 8;

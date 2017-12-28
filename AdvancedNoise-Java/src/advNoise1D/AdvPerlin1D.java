@@ -1,8 +1,19 @@
 package advNoise1D;
 
-import coherentNoise1D.PerlinNoise1D;
+import coherentNoise1D.Perlin1D;
 
-public class AdvPerlin1D<T> extends AdvGradientVectorNoise1D {
+/**
+ * This class initialize an instance of Perlin Noise with the concepts of
+ * frequency, octaves, and persistence.
+ * 
+ * @author Max Wright
+ * @version 1.0
+ * 
+ * @copyright Max Wright, All Rights Reserved
+ * @license LICENSE
+ * 
+ */
+public class AdvPerlin1D extends AdvGradientVectorNoise1D {
 	/**
 	 * This constructor creates an instance of PerlinNoise with the entered
 	 * parameters.
@@ -45,7 +56,7 @@ public class AdvPerlin1D<T> extends AdvGradientVectorNoise1D {
 	protected void populateArray() {
 		int tempFrequency = super.getFrequency();
 		for (int i = 0; i < super.getOctaves(); ++i) {
-			PerlinNoise1D temp = new PerlinNoise1D(tempFrequency,
+			Perlin1D temp = new Perlin1D(tempFrequency,
 					super.getSize());
 			populateNextIndex(temp);
 			tempFrequency *= 2;

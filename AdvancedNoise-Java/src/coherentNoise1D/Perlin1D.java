@@ -11,7 +11,7 @@ package coherentNoise1D;
  * @license LICENSE
  * 
  */
-public class PerlinNoise1D extends GradientVectorNoise1D {
+public class Perlin1D extends GradientVectorNoise1D {
 
 	/**
 	 * This constructor creates an instance of Perlin Noise in one dimension.
@@ -22,7 +22,7 @@ public class PerlinNoise1D extends GradientVectorNoise1D {
 	 *            The length of the noise to be made.
 	 * @extends GradientVectorNoise1D
 	 */
-	public PerlinNoise1D(int sections, int length) {
+	public Perlin1D(int sections, int length) {
 		super(sections, length);
 	}
 
