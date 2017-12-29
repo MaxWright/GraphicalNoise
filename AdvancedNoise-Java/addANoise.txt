@@ -1,0 +1,24 @@
+This project was designed to be easy to implement new styles of noises in the infrastructure of this 
+code in order to test the output of the noise. Within the code is numerous exceptions that can be 
+thrown to assure that the all noise function adhere to the same ruleset:
+	-The value of noise must be in the range of zero and one.
+	-The noise must not extend greater than the defined dimensions.
+	-For this project uniquely, the new noise must extend directly or indirectly from either Noise1D or 
+	 Noise2D, depending on the dimensions of the noise. 
+
+To Add a New Noise:
+Place the new noise inside the “coherentNoise” folder under source in the appropriate dimension.
+Implement an advNoice version in the appropriate folder.
+
+The following files must be amended:
+Noise.java
+-Add an enum value to the list with a unique name for the new noise. Use a standard name for the coherent
+ noise and put "adv_" in front of advanced version of the noise.
+
+GUI.java
+-Add a new NoiseRadioButton and associate it with the enum values you made, add to button group, panel, 
+ and add the appropriate action listener.
+
+Renderer1D.java & Renderer2D.java
+-Add the enums for your noise to the switch in resetGraphics and mimick the code of the other sections 
+ of the switch.
