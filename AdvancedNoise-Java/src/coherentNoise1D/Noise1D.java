@@ -17,9 +17,9 @@ public abstract class Noise1D {
 	 * Default constructor.
 	 */
 	public Noise1D() {
-		
+
 	}
-	
+
 	/**
 	 * @abstract
 	 * @return How long the 1D noise is as an integer.
@@ -28,7 +28,7 @@ public abstract class Noise1D {
 
 	/**
 	 * This function will return the noise value at the given coordinate. The
-	 * value be in between or equal to -1 and 1, [-1, 1].
+	 * value be in the range of [-1, 1].
 	 * 
 	 * @abstract
 	 * @param x

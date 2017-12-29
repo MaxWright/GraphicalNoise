@@ -27,6 +27,8 @@ import renderers.Noise;
  * This class creates a user interface to view and manipulate the graphical
  * noise.
  * 
+ * @implements ActionListener
+ * 
  * @author Max Wright
  * @version 1.0
  * 
@@ -47,7 +49,7 @@ public class GUI implements ActionListener {
 	 */
 	public GUI() {
 		// Create the JFrame and set attributes
-		JFrame frame = new JFrame("Noise");
+		JFrame frame = new JFrame("Graphical Noise Generator");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Noise Generator");
 		frame.setMinimumSize(new Dimension(1500, 1000));

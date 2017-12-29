@@ -1,5 +1,5 @@
 /**
- * This packages defined functionality for a variety of styles of one dimensional noise 
+ * This packages defined functionality for a variety of styles of two dimensional noise 
  * using the concepts of frequency, octaves, and persistence.
  * 
  * @author Max Wright
@@ -8,4 +8,4 @@
  * @copyright Max Wright, All Rights Reserved
  * @license LICENSE
  */
-package advNoise1D;
+package advNoise2D;

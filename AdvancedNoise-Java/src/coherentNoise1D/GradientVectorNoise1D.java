@@ -114,7 +114,7 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 		/*
 		 * The sections variable is now being used to determine how many
 		 * gradient vectors are needed. One vectors gradient is needed at each
-		 * corner of each section. Two sections will share one corned. Add one
+		 * corner of each section. Two sections will share one corner. Add one
 		 * more to the section variable to account for the last corner.
 		 */
 		++sections;
