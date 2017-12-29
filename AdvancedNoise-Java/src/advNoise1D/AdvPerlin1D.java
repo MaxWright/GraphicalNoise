@@ -6,6 +6,8 @@ import coherentNoise1D.Perlin1D;
  * This class initialize an instance of Perlin Noise with the concepts of
  * frequency, octaves, and persistence.
  * 
+ *  @extends AdvGradientVectorNoise1D
+ * 
  * @author Max Wright
  * @version 1.0
  * 

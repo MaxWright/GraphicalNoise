@@ -1,17 +1,3 @@
-/*
-filename    GUI.java
-author      Max Wright
-uploaded    12/20/2017
-
-Brief Description:
-  This object extends JFrame and acts as a display for the PatternCanvas
-  object.
-  
-  © 2017 Max Wright. All rights reserved. 
-  Free for use. Use at your own risk, Max Wright will not be liable for any
-  damages caused by this code.
- */
-
 package gui;
 
 import java.awt.BorderLayout;
@@ -36,11 +22,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import renderers.Noise;
-import renderers.Renderer1D;
-import renderers.Renderer2D;
 
 /**
- * This class creates a user interface to view and manipulate the graphical noise.
+ * This class creates a user interface to view and manipulate the graphical
+ * noise.
  * 
  * @author Max Wright
  * @version 1.0
@@ -50,9 +35,10 @@ import renderers.Renderer2D;
  * 
  */
 public class GUI implements ActionListener {
-	
+
 	/**
-	 * A JComponent that displays the noise function desired.
+	 * A JComponent that displays the noise function specified through the
+	 * interactive components of the GUI.
 	 */
 	RendererDisplay rendererDisplay;
 
@@ -76,11 +62,18 @@ public class GUI implements ActionListener {
 		frame.add(noiseSelector(), BorderLayout.WEST);
 		frame.add(rgbSliders(), BorderLayout.EAST);
 		frame.add(saveComponents(), BorderLayout.NORTH);
-		frame.add(intensitySliders(), BorderLayout.SOUTH);
+		frame.add(attributeSliders(), BorderLayout.SOUTH);
 
 		frame.setVisible(true);
 	}
 
+	/**
+	 * This function constructs and defines the functionality of radio buttons
+	 * that determine the dimension and type of noise.
+	 * 
+	 * @return A JPanel of radio buttons that determines the dimension of noise
+	 *         to display and which type of noise to display.
+	 */
 	private JPanel noiseSelector() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
@@ -93,14 +86,14 @@ public class GUI implements ActionListener {
 		oneDim.setSelected(true);
 		JRadioButton twoDim = new JRadioButton("2D");
 		twoDim.setActionCommand("2D");
-		
+
 		ButtonGroup dimensions = new ButtonGroup();
 		dimensions.add(oneDim);
 		dimensions.add(twoDim);
-		
+
 		panel.add(oneDim);
 		panel.add(twoDim);
-		
+
 		oneDim.addActionListener(this);
 		twoDim.addActionListener(this);
 		/*
@@ -111,8 +104,9 @@ public class GUI implements ActionListener {
 		perlin.setSelected(true);
 
 		// Simplex
-		JRadioButton simplex = new NoiseRadioButton("Simplex Noise", Noise.SIMPLEX);
-		
+		JRadioButton simplex = new NoiseRadioButton("Simplex Noise",
+				Noise.SIMPLEX);
+
 		// Scales
 		JRadioButton scales = new NoiseRadioButton("Scales", Noise.SCALES);
 
@@ -120,26 +114,32 @@ public class GUI implements ActionListener {
 		JRadioButton squares = new NoiseRadioButton("Squares", Noise.SQUARES);
 
 		// Triangles
-		JRadioButton triangles = new NoiseRadioButton("Triangles", Noise.TRIANGLES);
-				
+		JRadioButton triangles = new NoiseRadioButton("Triangles",
+				Noise.TRIANGLES);
+
 		// Wood
 		JRadioButton wood = new NoiseRadioButton("Wood", Noise.WOOD);
 
 		// Adv_Perlin
-		JRadioButton adv_perlin = new NoiseRadioButton("Adv Perlin Noise", Noise.ADV_PERLIN);
+		JRadioButton adv_perlin = new NoiseRadioButton("Adv Perlin Noise",
+				Noise.ADV_PERLIN);
 
 		// Adv_Simplex
-		JRadioButton adv_simplex = new NoiseRadioButton("Adv Simplex Noise", Noise.ADV_SIMPLEX);
-		
+		JRadioButton adv_simplex = new NoiseRadioButton("Adv Simplex Noise",
+				Noise.ADV_SIMPLEX);
+
 		// Adv_Scales
-		JRadioButton adv_scales = new NoiseRadioButton("Adv Scales", Noise.ADV_SCALES);
+		JRadioButton adv_scales = new NoiseRadioButton("Adv Scales",
+				Noise.ADV_SCALES);
 
 		// Adv_Squares (inverse of Perlin)
-		JRadioButton adv_squares = new NoiseRadioButton("Adv Squares", Noise.ADV_SQUARES);
+		JRadioButton adv_squares = new NoiseRadioButton("Adv Squares",
+				Noise.ADV_SQUARES);
 
 		// Adv_Triangles
-		JRadioButton adv_triangles = new NoiseRadioButton("Adv Triangles", Noise.ADV_TRIANGLES);
-						
+		JRadioButton adv_triangles = new NoiseRadioButton("Adv Triangles",
+				Noise.ADV_TRIANGLES);
+
 		// Adv_Wood
 		JRadioButton adv_wood = new NoiseRadioButton("Adv Wood", Noise.ADV_WOOD);
 
@@ -210,15 +210,20 @@ public class GUI implements ActionListener {
 		 * Create the red slider. Manipulation of this slider will change how
 		 * much red is present in the noise. 127 is the maximum, 0 is minimum.
 		 */
-		JSlider setRed = new JSlider(JSlider.HORIZONTAL, 0, 127, 127);
-		// Set background to red to signify this slider manipulates the red
-		// value.
+		JSlider setRed = new JSlider(JSlider.VERTICAL, 0, 127, 127);
+		/*
+		 * Set background to red to signify this slider manipulates the red
+		 * value.
+		 */
 		setRed.setBackground(Color.RED);
 		setRed.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				JSlider source = (JSlider) arg0.getSource();
-				// Set the red in the renderer to the value of the slider.
+				/*
+				 * Set the red in the rendererDisplay to the value of the
+				 * slider.
+				 */
 				rendererDisplay.setRed((int) source.getValue());
 			}
 		});
@@ -227,15 +232,20 @@ public class GUI implements ActionListener {
 		 * Create the green slider. Manipulation of this slider will change how
 		 * much red is present in the noise. 127 is the maximum, 0 is minimum.
 		 */
-		JSlider setGreen = new JSlider(JSlider.HORIZONTAL, 0, 127, 127);
-		// Set background to green to signify this slider manipulates the green
-		// value.
+		JSlider setGreen = new JSlider(JSlider.VERTICAL, 0, 127, 127);
+		/*
+		 * Set background to green to signify this slider manipulates the green
+		 * value.
+		 */
 		setGreen.setBackground(Color.GREEN);
 		setGreen.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				JSlider source = (JSlider) arg0.getSource();
-				// Set the green in the renderer to the value of the slider.
+				/*
+				 * Set the green in the rendererDisplay to the value of the
+				 * slider.
+				 */
 				rendererDisplay.setGreen((int) source.getValue());
 			}
 		});
@@ -245,14 +255,19 @@ public class GUI implements ActionListener {
 		 * much red is present in the noise. 127 is the maximum, 0 is minimum.
 		 */
 		JSlider setBlue = new JSlider(JSlider.VERTICAL, 0, 127, 127);
-		// Set background to blue to signify this slider manipulates the blue
-		// value.
+		/*
+		 * Set background to blue to signify this slider manipulates the blue
+		 * value.
+		 */
 		setBlue.setBackground(Color.BLUE);
 		setBlue.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				JSlider source = (JSlider) arg0.getSource();
-				// Set the blue in the renderer to the value of the slider.
+				/*
+				 * Set the blue in the rendererDisplay to the value of the
+				 * slider.
+				 */
 				rendererDisplay.setBlue((int) source.getValue());
 			}
 		});
@@ -265,11 +280,13 @@ public class GUI implements ActionListener {
 	}
 
 	/**
-	 * Creates a slider that manipulates the intensity of the noise
+	 * Creates sliders that manipulates the frequency, octaves, and persistence
+	 * of the noise
 	 * 
-	 * @return JPanel containing a slider.
+	 * @return A JPanel containing a three sliders that manipulates the
+	 *         frequency, octaves, and persistence of the noise.
 	 */
-	private JPanel intensitySliders() {
+	private JPanel attributeSliders() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(3, 1));
 
@@ -284,15 +301,15 @@ public class GUI implements ActionListener {
 				JSlider source = (JSlider) arg0.getSource();
 				if (!source.getValueIsAdjusting()) {
 					/*
-					int frequency = (int) source.getValue();
-					int width = 700 / frequency;
-
-					rendererDisplay.reset(frequency, width);
-					*/
+					 * int frequency = (int) source.getValue(); int width = 700
+					 * / frequency;
+					 * 
+					 * rendererDisplay.reset(frequency, width);
+					 */
 				}
 			}
 		});
-		
+
 		JSlider octaveSlider = new JSlider(JSlider.HORIZONTAL, 1, 50, 10);
 		octaveSlider.addChangeListener(new ChangeListener() {
 			@Override
@@ -300,15 +317,15 @@ public class GUI implements ActionListener {
 				JSlider source = (JSlider) arg0.getSource();
 				if (!source.getValueIsAdjusting()) {
 					/*
-					int frequency = (int) source.getValue();
-					int width = 700 / frequency;
-
-					rendererDisplay.reset(frequency, width);
-					*/
+					 * int frequency = (int) source.getValue(); int width = 700
+					 * / frequency;
+					 * 
+					 * rendererDisplay.reset(frequency, width);
+					 */
 				}
 			}
 		});
-		
+
 		JSlider persistanceSlider = new JSlider(JSlider.HORIZONTAL, 1, 50, 10);
 		persistanceSlider.addChangeListener(new ChangeListener() {
 			@Override
@@ -316,15 +333,15 @@ public class GUI implements ActionListener {
 				JSlider source = (JSlider) arg0.getSource();
 				if (!source.getValueIsAdjusting()) {
 					/*
-					int frequency = (int) source.getValue();
-					int width = 700 / frequency;
-
-					rendererDisplay.reset(frequency, width);
-					*/
+					 * int frequency = (int) source.getValue(); int width = 700
+					 * / frequency;
+					 * 
+					 * rendererDisplay.reset(frequency, width);
+					 */
 				}
 			}
 		});
-		
+
 		panel.add(frequencySlider);
 		panel.add(octaveSlider);
 		panel.add(persistanceSlider);
@@ -333,9 +350,8 @@ public class GUI implements ActionListener {
 
 	/**
 	 * Create a JTextField whose string will be used as the name of the save of
-	 * the graphic made from {@link Renderer2D}, creates a JButton who will
-	 * execute the save, create a second JButton to swtich between the type of
-	 * noise being displayed.
+	 * the graphic made from {@link RendererDisplay}, creates a JButton that
+	 * will execute the save.
 	 * 
 	 * @return A JPanel with a JTextField and two buttons.
 	 */
@@ -359,7 +375,8 @@ public class GUI implements ActionListener {
 				String temp = saveName.getText();
 				try {
 					File myNewLineArt = new File(temp + ".png");
-					ImageIO.write(rendererDisplay.getGraphic(), "png", myNewLineArt);
+					ImageIO.write(rendererDisplay.getGraphic(), "png",
+							myNewLineArt);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -377,17 +394,25 @@ public class GUI implements ActionListener {
 	 * noiseSelector function.
 	 */
 	public void actionPerformed(ActionEvent e) {
+		// Account for the dimension radio buttons first.
 		String toCompare = e.getActionCommand();
-		if(toCompare.equals("1D")) {
+		if (toCompare.equals("1D")) {
 			rendererDisplay.setDimension(1);
-		} else if(toCompare.equals("2D")) {
+		} else if (toCompare.equals("2D")) {
 			rendererDisplay.setDimension(2);
 		} else {
+			/*
+			 * Now account for the noise radio buttons. Because of the special
+			 * NoiseRadioButton class, the source must be casted. If another
+			 * normal radio button has been added without accounting for
+			 * functionality, the try catch block is included.
+			 */
 			try {
+
 				NoiseRadioButton button = (NoiseRadioButton) e.getSource();
 				rendererDisplay.resetGraphic(button.getAssociatedNoise());
 			} catch (ClassCastException exc) {
-				
+
 			}
 		}
 	}

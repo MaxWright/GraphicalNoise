@@ -1,15 +1,3 @@
-/*
-filename    Renderer.java
-author      Max Wright
-uploaded    12/20/2017
-
-Brief Description:
-  
-  
-  © 2017 Max Wright. All rights reserved. 
-  Free for use. Use at your own risk, Max Wright will not be liable for any
-  damages caused by this code.
- */
 package renderers;
 
 import java.awt.Color;
@@ -37,7 +25,7 @@ public class Renderer2D extends Renderer {
 	}
 
 	@Override
-	public BufferedImage getGraphic() {
+	public BufferedImage getGraphic() throws ArithmeticException {
 		// TODO Auto-generated method stub
 		return null;
 	}

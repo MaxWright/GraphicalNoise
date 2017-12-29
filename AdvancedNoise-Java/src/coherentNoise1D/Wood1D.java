@@ -1,7 +1,11 @@
 package coherentNoise1D;
 
+import utilities.NoiseMath;
+
 /**
  * This class defines the methodology of generating Wood Noise in one dimension.
+ * 
+ * @extends GradientVectorNoise1D
  * 
  * @author Max Wright
  * @version 1.0
@@ -54,7 +58,7 @@ public class Wood1D extends GradientVectorNoise1D {
 		/*
 		 * Fade the individual vector values of the distance vector.
 		 */
-		x = fade(x);
+		x = NoiseMath.fade(x);
 		/*
 		 * Take the dot product of the given gradient vector and distance
 		 * vector.
@@ -84,16 +88,6 @@ public class Wood1D extends GradientVectorNoise1D {
 		return dot - dotFloor;
 	}
 
-	/**
-	 * This function fades a given value. This fade function of 6t^5 - 15t^4 +
-	 * 10t^3 changes a linear relationship into a curved relationship.
-	 * 
-	 * @param val
-	 *            A double to be faded.
-	 * @return A double of the given value after being faded.
-	 */
-	private double fade(double val) {
-		return val * val * val * (val * ((val * 6) - 15) + 10);
-	}
+	
 
 }

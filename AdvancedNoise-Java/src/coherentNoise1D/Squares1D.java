@@ -1,8 +1,12 @@
 package coherentNoise1D;
 
+import utilities.NoiseMath;
+
 /**
  * This class defines the methodology of generating "Squares" in one dimension.
  * Its output is closer to curves with pointed tops rather than smooth.
+ * 
+ * @extends GradientVectorNoise1D
  * 
  * @author Max Wright
  * @version 1.0
@@ -35,7 +39,7 @@ public class Squares1D extends GradientVectorNoise1D {
 		x = getSection(x);
 		double lhs = dotProduct(x, distance);
 		double rhs = dotProduct(x + 1, (1 - distance));
-		distance = fade(distance);
+		distance = NoiseMath.fade(distance);
 		return interpolate(distance, lhs, rhs);
 	}
 
@@ -52,17 +56,5 @@ public class Squares1D extends GradientVectorNoise1D {
 	 */
 	private double interpolate(double mu, double lhs, double rhs) {
 		return lhs + mu * (rhs - lhs);
-	}
-
-	/**
-	 * This function fades a given value. This fade function of 6t^5 - 15t^4 +
-	 * 10t^3 changes a linear relationship into a curved relationship.
-	 * 
-	 * @param val
-	 *            A double to be faded.
-	 * @return A double of the given value after being faded.
-	 */
-	private double fade(double val) {
-		return val * val * val * (val * ((val * 6) - 15) + 10);
 	}
 }

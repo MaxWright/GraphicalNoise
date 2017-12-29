@@ -6,6 +6,8 @@ import java.util.Random;
  * This class provides common functionality between all 1D noise styles that
  * utilize gradient vectors at set intervals in a line.
  * 
+ * @extends Noise1D
+ * 
  * @abstract
  * @author Max Wright
  * @version 1.0
@@ -61,7 +63,7 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 			{ 1.17588, -0.785695 }, { -1.17588, -0.785695 }, };
 	/**
 	 * An array of integers where each integer maps to a particular gradient
-	 * vector defined in the array {@link gradientVectorsValues}.
+	 * vector defined in the array of gradient values.
 	 */
 	private int[] vectorGradients;
 

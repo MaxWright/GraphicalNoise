@@ -4,6 +4,8 @@ package coherentNoise1D;
  * This class defines the methodology of generating Triangle Noise in one
  * dimension.
  * 
+ * @extends GradientVectorNoise1D
+ * 
  * @author Max Wright
  * @version 1.0
  * 

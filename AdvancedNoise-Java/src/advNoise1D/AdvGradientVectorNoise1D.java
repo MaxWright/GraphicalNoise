@@ -7,6 +7,8 @@ import coherentNoise1D.Noise1D;
  * This class defines a bulk of functionality for 1D noise styles that
  * implements the concepts of frequency, octaves, and persistence.
  * 
+ * @extends Noise1D
+ * 
  * @abstract
  * @author Max Wright
  * @version 1.0

@@ -1,10 +1,14 @@
 package coherentNoise1D;
 
+import utilities.NoiseMath;
+
 public class Scales1D extends GradientVectorNoise1D {
 
 	/**
 	 * This class defines the methodology of generating Scales Noise in one
 	 * dimension.
+	 * 
+	 * @extends GradientVectorNoise1D
 	 * 
 	 * @author Max Wright
 	 * @version 1.0
@@ -48,20 +52,7 @@ public class Scales1D extends GradientVectorNoise1D {
 			toReturn = 0;
 		}
 		toReturn = toReturn * toReturn;
-		x = fade(x);
+		x = NoiseMath.fade(x);
 		return toReturn * getGradientVal(index) * x;
 	}
-
-	/**
-	 * This function fades a given value. This fade function of 6t^5 - 15t^4 +
-	 * 10t^3 changes a linear relationship into a curved relationship.
-	 * 
-	 * @param val
-	 *            A double to be faded.
-	 * @return A double of the given value after being faded.
-	 */
-	private double fade(double val) {
-		return val * val * val * (val * ((val * 6) - 15) + 10);
-	}
-
 }
