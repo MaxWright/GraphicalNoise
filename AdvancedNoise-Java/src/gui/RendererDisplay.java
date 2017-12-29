@@ -42,6 +42,8 @@ public class RendererDisplay extends JComponent {
 	 */
 	private int dimension = 1;
 
+	private Noise currentNoise = Noise.PERLIN;
+
 	/**
 	 * Default constructor for the renderer display.
 	 * 
@@ -79,12 +81,24 @@ public class RendererDisplay extends JComponent {
 	}
 
 	/**
+	 * This function causes the renderers to to reinitialize the noise they
+	 * currently have saved and repaints the component.
+	 */
+	public void resetGraphic() {
+		renderers[0].resetGraphic(currentNoise);
+		renderers[1].resetGraphic(currentNoise);
+		repaint();
+	}
+
+	/**
 	 * This function causes the renderers to switch to the new specified noise
-	 * or to reinitialize the noise they currently have saved.
+	 * or to reinitialize the noise they currently have saved and repaints the
+	 * component.
 	 * 
 	 * @param noiseType
 	 */
 	public void resetGraphic(Noise noiseType) {
+		currentNoise = noiseType;
 		renderers[0].resetGraphic(noiseType);
 		renderers[1].resetGraphic(noiseType);
 		repaint();
@@ -130,38 +144,124 @@ public class RendererDisplay extends JComponent {
 	}
 
 	/**
-	 * Sets the value of the red being shown in the image.
+	 * Sets the value of the red being shown in the image and repaints the
+	 * component.
 	 * 
-	 * @param val The new value of for the amount of red being displayed as an integer.
+	 * @param val
+	 *            The new value of for the amount of red being displayed as an
+	 *            integer.
 	 * @throws IllegalArgumentException
-	 *             If the value is not acceptable for {@link renderers.Renderer#setRed(int)}.
+	 *             If the value is not acceptable for
+	 *             {@link renderers.Renderer#setRed(int)}.
 	 */
 	public void setRed(int val) throws IllegalArgumentException {
 		renderers[0].setRed(val);
 		renderers[1].setRed(val);
+		repaint();
 	}
 
 	/**
-	 * Sets the value of the green being shown in the image.
+	 * Sets the value of the green being shown in the image and repaints the
+	 * component.
 	 * 
-	 * @param val The new value of for the amount of green being displayed as an integer.
+	 * @param val
+	 *            The new value of for the amount of green being displayed as an
+	 *            integer.
 	 * @throws IllegalArgumentException
-	 *             If the value is not acceptable for {@link renderers.Renderer#setGreen(int)}.
+	 *             If the value is not acceptable for
+	 *             {@link renderers.Renderer#setGreen(int)}.
 	 */
 	public void setGreen(int val) throws IllegalArgumentException {
 		renderers[0].setGreen(val);
 		renderers[1].setGreen(val);
+		repaint();
 	}
 
 	/**
-	 * Sets the value of the blue being shown in the image.
+	 * Sets the value of the blue being shown in the image and repaints the
+	 * component.
 	 * 
-	 * @param val The new value of for the amount of blue being displayed as an integer.
+	 * @param val
+	 *            The new value of for the amount of blue being displayed as an
+	 *            integer.
 	 * @throws IllegalArgumentException
-	 *             If the value is not acceptable for {@link renderers.Renderer#setBlue(int)}.
+	 *             If the value is not acceptable for
+	 *             {@link renderers.Renderer#setBlue(int)}.
 	 */
 	public void setBlue(int val) throws IllegalArgumentException {
 		renderers[0].setBlue(val);
 		renderers[1].setBlue(val);
+		repaint();
 	}
+
+	/**
+	 * Sets the persistence of then noise and repaints the component.
+	 * 
+	 * @param persistence
+	 *            The new persistence as a double.
+	 * @throws IllegalArgumentException
+	 *             Dependent on
+	 *             {@link renderers.Renderer#setPersistence(double)}
+	 */
+	public void setPersistance(double persistence)
+			throws IllegalArgumentException {
+		renderers[0].setPersistence(persistence);
+		renderers[1].setPersistence(persistence);
+		resetGraphic();
+		repaint();
+	}
+
+	/**
+	 * Sets the new number of octaves to the given value and repaints the
+	 * component.
+	 * 
+	 * @param octaves
+	 *            The new number of octaves as an integer.
+	 * @throws IllegalArgumentException
+	 *             Dependent on {@link renderers.Renderer#setOctaves(double)}
+	 */
+	public void setOctaves(int octaves) throws IllegalArgumentException {
+		renderers[0].setOctaves(octaves);
+		renderers[1].setOctaves(octaves);
+		resetGraphic();
+		repaint();
+
+	}
+
+	/**
+	 * Gets the maximum number of octaves possible for the set frequency.
+	 * 
+	 * @return The maximum number of octaves possible for the frequency set as
+	 *         an integer.
+	 */
+	public int getMaxOctaves() {
+		return renderers[dimension - 1].getMaxOctaves();
+	}
+
+	/**
+	 * Sets the frequency of the noise to the given value and repaints the
+	 * component.
+	 * 
+	 * @param frequency
+	 *            The new frequency of the noise as an integer.
+	 * @throws IllegalArgumentException
+	 *             Dependent on {@link renderers.Renderer#setFrequency(double)}
+	 */
+	public void setFrequency(int frequency) throws IllegalArgumentException {
+		renderers[0].setFrequency(frequency);
+		renderers[1].setFrequency(frequency);
+		resetGraphic();
+		repaint();
+	}
+
+	/**
+	 * Gets the maximum frequency possible for the set frequency and length.
+	 * 
+	 * @return The maximum frequency possible for the frequency set as an
+	 *         integer.
+	 */
+	public int getMaxFrequency() {
+		return renderers[dimension - 1].getMaxFrequency();
+	}
+	
 }

@@ -1,9 +1,9 @@
 package advNoise1D;
 
-import coherentNoise1D.Perlin1D;
+import coherentNoise1D.Scales1D;
 
 /**
- * This class initialize an instance of Perlin Noise with the concepts of
+ * This class initialize an instance of Scales Noise with the concepts of
  * frequency, octaves, and persistence.
  * 
  * @extends AdvGradientVectorNoise1D
@@ -15,9 +15,9 @@ import coherentNoise1D.Perlin1D;
  * @license LICENSE
  * 
  */
-public class AdvPerlin1D extends AdvGradientVectorNoise1D {
+public class AdvScales1D extends AdvGradientVectorNoise1D {
 	/**
-	 * This constructor creates an instance of Advanced Simplex Noise with the
+	 * This constructor creates an instance of Advanced Scales Noise with the
 	 * entered parameters.
 	 * 
 	 * @param frequency
@@ -33,7 +33,7 @@ public class AdvPerlin1D extends AdvGradientVectorNoise1D {
 	 *             {@link AdvGradientVectorNoise1D}
 	 * @extends AdvGradientVectorNoise1D
 	 */
-	public AdvPerlin1D(int frequency, int length, int octaves,
+	public AdvScales1D(int frequency, int length, int octaves,
 			double persistence) throws IllegalArgumentException {
 		super(frequency, length, octaves, persistence);
 		populateArray();
@@ -43,7 +43,7 @@ public class AdvPerlin1D extends AdvGradientVectorNoise1D {
 	protected void populateArray() {
 		int tempFrequency = super.getFrequency();
 		for (int i = 0; i < super.getOctaves(); ++i) {
-			Perlin1D temp = new Perlin1D(tempFrequency, super.getSize());
+			Scales1D temp = new Scales1D(tempFrequency, super.getSize());
 			populateNextIndex(temp);
 			tempFrequency *= 2;
 		}

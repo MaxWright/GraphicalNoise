@@ -213,10 +213,19 @@ public abstract class Renderer {
 	}
 
 	/**
+	 * Sets the frequency of the noise to the given value.
 	 * 
 	 * @param frequency
+	 *            The new frequency of the noise as an integer.
+	 * @throws IllegalArgumentException
+	 *             If the value entered is less than or equal to zero.
+	 *             <p>
+	 *             -OR-
+	 *             <P>
+	 *             If the value entered is too great when applied to the amount
+	 *             of octaves in respect to the length of the noise.
 	 */
-	public void setFrequency(int frequency) {
+	public void setFrequency(int frequency) throws IllegalArgumentException {
 		if (frequency <= 0) {
 			throw new IllegalArgumentException(
 					"The frequency must be greater than zero");
@@ -320,5 +329,27 @@ public abstract class Renderer {
 					"The persistance cannot be zero.");
 		}
 		this.persistence = persistence;
+	}
+
+	/**
+	 * Calculates the maximum number of octaves possible for the set frequency
+	 * and length.
+	 * 
+	 * @return The maximum number of octaves possible for the frequency set as
+	 *         an integer.
+	 */
+	public int getMaxOctaves() {
+		return (int) (Math.log(length / frequency) / Math.log(2));
+	}
+
+	/**
+	 * Calculates the maximum frequency possible for the set frequency and
+	 * length.
+	 * 
+	 * @return The maximum frequency possible for the frequency set as
+	 *         an integer.
+	 */
+	public int getMaxFrequency() {
+		return length / (int)Math.pow(2, octaves);
 	}
 }

@@ -1,9 +1,9 @@
 package advNoise1D;
 
-import coherentNoise1D.Perlin1D;
+import coherentNoise1D.Squares1D;
 
 /**
- * This class initialize an instance of Perlin Noise with the concepts of
+ * This class initialize an instance of Wood Noise with the concepts of
  * frequency, octaves, and persistence.
  * 
  * @extends AdvGradientVectorNoise1D
@@ -15,10 +15,10 @@ import coherentNoise1D.Perlin1D;
  * @license LICENSE
  * 
  */
-public class AdvPerlin1D extends AdvGradientVectorNoise1D {
+public class AdvWood1D extends AdvGradientVectorNoise1D {
 	/**
-	 * This constructor creates an instance of Advanced Simplex Noise with the
-	 * entered parameters.
+	 * This constructor creates an instance of Wood Noise with the entered
+	 * parameters.
 	 * 
 	 * @param frequency
 	 *            The number of independent sections in the noise as an integer.
@@ -33,8 +33,8 @@ public class AdvPerlin1D extends AdvGradientVectorNoise1D {
 	 *             {@link AdvGradientVectorNoise1D}
 	 * @extends AdvGradientVectorNoise1D
 	 */
-	public AdvPerlin1D(int frequency, int length, int octaves,
-			double persistence) throws IllegalArgumentException {
+	public AdvWood1D(int frequency, int length, int octaves, double persistence)
+			throws IllegalArgumentException {
 		super(frequency, length, octaves, persistence);
 		populateArray();
 	}
@@ -43,7 +43,7 @@ public class AdvPerlin1D extends AdvGradientVectorNoise1D {
 	protected void populateArray() {
 		int tempFrequency = super.getFrequency();
 		for (int i = 0; i < super.getOctaves(); ++i) {
-			Perlin1D temp = new Perlin1D(tempFrequency, super.getSize());
+			Squares1D temp = new Squares1D(tempFrequency, super.getSize());
 			populateNextIndex(temp);
 			tempFrequency *= 2;
 		}

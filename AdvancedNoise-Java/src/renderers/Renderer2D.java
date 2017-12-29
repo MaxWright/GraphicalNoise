@@ -1,19 +1,7 @@
 package renderers;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JComponent;
-
-import coherentNoise1D.Noise1D;
-import noise.PerlinNoiseMW;
-import noise.ScalesMW;
-import noise.SimplexNoiseMW;
-import noise.SquaresMW;
-import noise.TrianglesMW;
-import noise.WoodMW;
 
 
 public class Renderer2D extends Renderer {

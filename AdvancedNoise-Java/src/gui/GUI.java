@@ -294,57 +294,63 @@ public class GUI implements ActionListener {
 		 * Create the intensity slider. Manipulation of this slider will change
 		 * the squares that define the noise. The values range from 1 to 50.
 		 */
-		JSlider frequencySlider = new JSlider(JSlider.HORIZONTAL, 1, 50, 10);
+		JSlider frequencySlider = new JSlider(JSlider.HORIZONTAL, 1, 100, 10);
+		frequencySlider.setToolTipText("Frequency Slider");
 		frequencySlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				JSlider source = (JSlider) arg0.getSource();
 				if (!source.getValueIsAdjusting()) {
-					/*
-					 * int frequency = (int) source.getValue(); int width = 700
-					 * / frequency;
-					 * 
-					 * rendererDisplay.reset(frequency, width);
-					 */
+					try {
+						rendererDisplay.setFrequency(source.getValue());
+					} catch (IllegalArgumentException e) {
+						rendererDisplay.setFrequency(rendererDisplay
+								.getMaxFrequency());
+						source.setValue(rendererDisplay.getMaxFrequency());
+					}
 				}
 			}
 		});
 
-		JSlider octaveSlider = new JSlider(JSlider.HORIZONTAL, 1, 50, 10);
+		JSlider octaveSlider = new JSlider(JSlider.HORIZONTAL, 1, 10, 1);
+		octaveSlider.setToolTipText("Octave Slider");
 		octaveSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				JSlider source = (JSlider) arg0.getSource();
 				if (!source.getValueIsAdjusting()) {
-					/*
-					 * int frequency = (int) source.getValue(); int width = 700
-					 * / frequency;
-					 * 
-					 * rendererDisplay.reset(frequency, width);
-					 */
+					try {
+						rendererDisplay.setOctaves(source.getValue());
+					} catch (IllegalArgumentException e) {
+						rendererDisplay.setOctaves(rendererDisplay
+								.getMaxOctaves());
+						source.setValue(rendererDisplay.getMaxOctaves());
+					}
 				}
 			}
 		});
 
-		JSlider persistanceSlider = new JSlider(JSlider.HORIZONTAL, 1, 50, 10);
-		persistanceSlider.addChangeListener(new ChangeListener() {
+		JSlider persistenceSlider = new JSlider(JSlider.HORIZONTAL, 1, 100, 100);
+		persistenceSlider.setToolTipText("Persistence Slider");
+		persistenceSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				JSlider source = (JSlider) arg0.getSource();
 				if (!source.getValueIsAdjusting()) {
-					/*
-					 * int frequency = (int) source.getValue(); int width = 700
-					 * / frequency;
-					 * 
-					 * rendererDisplay.reset(frequency, width);
-					 */
+					try {
+						rendererDisplay.setPersistance((double) source
+								.getValue() / 100);
+					} catch (IllegalArgumentException e) {
+						rendererDisplay.setPersistance(1);
+						source.setValue(100);
+					}
 				}
 			}
 		});
 
 		panel.add(frequencySlider);
 		panel.add(octaveSlider);
-		panel.add(persistanceSlider);
+		panel.add(persistenceSlider);
 		return panel;
 	}
 
