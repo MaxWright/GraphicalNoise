@@ -22,13 +22,15 @@ public abstract class Noise2D {
 
 	/**
 	 * @abstract
-	 * @return The width 2D noise is as an integer.
+	 * @return The width 2D if the noise as an integer.
+	 * @see {@link #getHeight()}
 	 */
 	public abstract int getWidth();
 
 	/**
 	 * @abstract
-	 * @return The height 2D noise is as an integer.
+	 * @return The height of the 2D noise as an integer.
+	 * @see {@link #getWidth()}
 	 */
 	public abstract int getHeight();
 

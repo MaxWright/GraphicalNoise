@@ -16,7 +16,7 @@ import java.util.Random;
  * @license LICENSE
  * 
  */
-public abstract class GradientVectorNoise2D {
+public abstract class GradientVectorNoise2D extends Noise2D {
 	/**
 	 * This variable represents the width of the noise as an integer.
 	 */
@@ -26,11 +26,11 @@ public abstract class GradientVectorNoise2D {
 	 */
 	private int height;
 	/**
-	 * The number of individual units per section on the width.
+	 * The number of individual units per section on the width as an integer.
 	 */
 	private int unitsPerSectionWidth;
 	/**
-	 * The number of individual units per section on the Height.
+	 * The number of individual units per section on the Height as an integer.
 	 */
 	private int unitsPerSectionHeight;
 	/**
@@ -136,23 +136,23 @@ public abstract class GradientVectorNoise2D {
 
 	/**
 	 * This function takes in an index relative to the start of the noise in
-	 * respect to the x axis and returns the length from the closest section to
-	 * the left to that position.
+	 * respect to the x-axis and returns the vector value from the gradient
+	 * position at the top left corner of the section this index belongs to to
+	 * the x value given.
 	 * 
 	 * @param x
-	 *            The index of the distance vector needed relative to the start
-	 *            of the noise as an integer on the x axis.
-	 * @param y
-	 *            The index of the distance vector needed relative to the start
-	 *            of the noise as an integer on the y axis.
-	 * @return The distance from the start of the local section to that point.
+	 *            - The index of the distance vector needed relative to the
+	 *            start of the noise as an integer on the x-axis.
+	 * @return The vector value from the top left corner to the entered x
+	 *         position.
 	 * @throws IndexOutOfBoundsException
-	 *             If the entered index is greater than or equal to the length
-	 *             of the noise or if it is less than the starting position.
+	 *             Dependent on {@link #inBounds(int,int)} where the y value is
+	 *             zero.
+	 * @see {@link #getDistanceVectorY(int)}
 	 */
 	protected double getDistanceVectorX(int x) throws IndexOutOfBoundsException {
 		// Check to see if the index is within bounds.
-		inBounds(x);
+		inBounds(x, 0);
 		// Find where in the section the index belongs.
 		x -= x / unitsPerSectionWidth * unitsPerSectionWidth;
 		// Return the distance from the left hand part of the section to that
@@ -162,24 +162,265 @@ public abstract class GradientVectorNoise2D {
 
 	/**
 	 * This function takes in an index relative to the start of the noise in
-	 * respect to the y axis and returns the length from the closest section to
-	 * the left to that position.
+	 * respect to the y-axis and returns the vector value from the gradient
+	 * position at the top left corner of the section this index belongs to to
+	 * the entered y value.
 	 * 
 	 * @param y
-	 *            The index of the distance vector needed relative to the start
-	 *            of the noise as an integer on the y axis.
-	 * @return The distance from the start of the local section to that point.
+	 *            - The index of the distance vector needed relative to the
+	 *            start of the noise as an integer on the y-axis.
+	 * @return The distance from the top left corner to the entered y position.
 	 * @throws IndexOutOfBoundsException
-	 *             If the entered index is greater than or equal to the length
-	 *             of the noise or if it is less than the starting position.
+	 *             Dependent on {@link #inBounds(int,int)} where the x value is
+	 *             zero.
+	 * @see {@link #getDistanceVectorX(int)}
 	 */
 	protected double getDistanceVectorY(int y) throws IndexOutOfBoundsException {
 		// Check to see if the index is within bounds.
-		inBounds(y);
+		inBounds(0, y);
 		// Find where in the section the index belongs.
 		y -= y / unitsPerSectionHeight * unitsPerSectionHeight;
 		// Return the distance from the left hand part of the section to that
 		// position.
 		return (double) y / (double) (unitsPerSectionHeight - 1);
 	}
+
+	/**
+	 * This function takes in an index relative to the start of the noise in
+	 * respect to the x-axis and returns the vector value from the gradient
+	 * position at the bottom right corner of the section this index belongs to
+	 * to the entered x value.
+	 * 
+	 * @param x
+	 *            - The index of the distance vector needed relative to the
+	 *            start of the noise as an integer on the x-axis.
+	 * @return The vector value from the bottom right gradient position of the
+	 *         section to the entered x position.
+	 * @throws IndexOutOfBoundsException
+	 *             Dependent on {@link #getDistanceVectorX(int)}
+	 * @see {@link #getOpDistanceVectorY(int)}
+	 */
+	protected double getOpDistanceVectorX(int x)
+			throws IndexOutOfBoundsException {
+		return -(1 - getDistanceVectorX(x));
+	}
+
+	/**
+	 * This function takes in an index relative to the start of the noise in
+	 * respect to the y-axis and returns the vector value from the gradient at
+	 * the bottom right corner of the section this index belongs to to the
+	 * entered x value.
+	 * 
+	 * @param y
+	 *            - The index of the distance vector needed relative to the
+	 *            start of the noise as an integer on the y-axis.
+	 * @return The vector value from the bottom right gradient position of the
+	 *         section to the entered y position.
+	 * @throws IndexOutOfBoundsException
+	 *             Dependent on {@link #getDistanceVectorY(int)}
+	 * @see {@link #getOpDistanceVectorX(int)}
+	 */
+	protected double getOpDistanceVectorY(int y)
+			throws IndexOutOfBoundsException {
+		return -(1 - getDistanceVectorY(y));
+	}
+
+	/**
+	 * 
+	 * This function determined is the point given as (x, y) is within the
+	 * bounds of the noise.
+	 * 
+	 * @param x
+	 *            - The index of the distance vector needed relative to the
+	 *            start of the noise as an integer on the x-axis.
+	 * @param y
+	 *            - The index of the distance vector needed relative to the
+	 *            start of the noise as an integer on the y-axis.
+	 * @throws IndexOutOfBoundsException
+	 *             If the index of noise is outside of the bounds of the noise.
+	 */
+	protected void inBounds(int x, int y) throws IndexOutOfBoundsException {
+		if (x < 0 || x >= width) {
+			throw new IndexOutOfBoundsException("x at " + x
+					+ " is not within bounds of [0," + width + ")");
+		}
+		if (y < 0 || y >= height) {
+			throw new IndexOutOfBoundsException("y at " + y
+					+ " is not within bounds of [0," + height + ")");
+		}
+	}
+
+	/**
+	 * This function finds the section the x index is located in on the x axis.
+	 * 
+	 * @param x
+	 *            - The index of the distance vector needed relative to the
+	 *            start of the noise as an integer on the x-axis.
+	 * @return The x-axis section that this index is in as an integer.
+	 * @throws IndexOutOfBoundsException
+	 *             Dependent on {@link #inBounds(int,int)} where the y value is
+	 *             zero.
+	 * @see {@link #getSectionY(int)}
+	 */
+	protected int getSectionX(int x) {
+		inBounds(x, 0);
+		return x / unitsPerSectionWidth;
+	}
+
+	/**
+	 * This function finds the section the y index is located in on the y axis.
+	 * 
+	 * @param y
+	 *            - The index of the distance vector needed relative to the
+	 *            start of the noise as an integer on the y-axis.
+	 * @return The y-axis section that this index is in as an integer.
+	 * @throws IndexOutOfBoundsException
+	 *             Dependent on {@link #inBounds(int,int)} where the x value is
+	 *             zero.
+	 * @see {@link #getSectionX(int)}
+	 */
+	protected int getSectionY(int y) {
+		inBounds(0, y);
+		return y / unitsPerSectionHeight;
+	}
+
+	/**
+	 * This function performs a dot product operation between the gradient
+	 * vector at the given index and the dimensions given of the index. Since
+	 * the y distance will only ever be zero only the x distance is needed.
+	 * 
+	 * @param indexX
+	 *             - The corner that is being dotted with the entered distance on
+	 *            the x-axis as an integer.
+	 * @param indexY
+	 *             - The corner that is being dotted with the entered distance on
+	 *            the y-axis as an integer.
+	 * @param x
+	 *             - The value of the distance vector in the x direction as a
+	 *            double.
+	 * @param y
+	 *             - The value of the distance vector in the y direction as a
+	 *            double.
+	 * @return A double representing the result of the dot product of the
+	 *         gradient vector at position index and the distance vector.
+	 * @throws IndexOutOfBoundsException
+	 *             If the indexes of the vector gradient entered are not an
+	 *             appropriate index.
+	 * @throws IllegalArgumentException
+	 *             If the values entered for the x or y distance vector values
+	 *             is outside the bounds of [-1, 1].
+	 */
+	protected double dotProduct(int indexX, int indexY, double x, double y)
+			throws IndexOutOfBoundsException, IllegalArgumentException {
+		// Check that the indexes are within bounds of the number of sections.
+		if (indexY < 0 || indexY >= vectorGradients.length) {
+			throw new IndexOutOfBoundsException("Index: at " + indexY
+					+ " is not within bounds of [0," + vectorGradients.length
+					+ ")");
+		}
+		if (indexX < 0 || indexX >= vectorGradients[0].length) {
+			throw new IndexOutOfBoundsException("Index: at " + indexX
+					+ " is not within bounds of [0," + vectorGradients.length
+					+ ")");
+		}
+		// If the x value is not within the bounds of [-1, 1].
+		if (x < -1 || x > 1) {
+			throw new IllegalArgumentException(
+					"x value entered whose value is " + x
+							+ " is not within bounds of [-1, 1].");
+		}
+		// If the y value is not within the bounds of [-1, 1].
+		if (y < -1 || y > 1) {
+			throw new IllegalArgumentException(
+					"y value entered whose value is " + y
+							+ " is not within bounds of [-1, 1].");
+		}
+		/*
+		 * Return the dot product calculation of the gradient vector and the
+		 * distance vector.
+		 */
+		return gradientVectorsValues[vectorGradients[indexY][indexX]][0] * x
+				+ gradientVectorsValues[vectorGradients[indexY][indexX]][1] * y;
+	}
+
+	/**
+	 * This function exists for the Scales1D class and Wood1D class.
+	 * 
+	 * @param indexX
+	 *             - The corner that is being dotted with the entered distance on
+	 *            the x-axis as an integer.
+	 * @param indexY
+	 *             - The corner that is being dotted with the entered distance on
+	 *            the y-axis as an integer.
+	 * @return The value of the x of the gradient vector at the corner given.
+	 * @throws IndexOutOfBoundsException
+	 *             Dependent on {@link #getGradientVals(int, int)}
+	 * @see {@link #getGradientValY(int,int)}
+	 * @see {@link #getGradientVals(int,int)}
+	 */
+	protected double getGradientValX(int indexX, int indexY)
+			throws IndexOutOfBoundsException {
+		return getGradientVals(indexX, indexY)[0];
+	}
+
+	/**
+	 * This function exists for the Scales1D class and Wood1D class.
+	 * 
+	 * @param indexX
+	 *             - The corner that is being dotted with the entered distance on
+	 *            the x-axis as an integer.
+	 * @param indexY
+	 *             - The corner that is being dotted with the entered distance on
+	 *            the y-axis as an integer.
+	 * @return The value of the y of the gradient vector at the corner given.
+	 * @throws IndexOutOfBoundsException
+	 *             Dependent on {@link #getGradientVals(int, int)}
+	 * @see {@link #getGradientValY(int,int)}
+	 * @see {@link #getGradientVals(int,int)}
+	 */
+	protected double getGradientValY(int indexX, int indexY)
+			throws IndexOutOfBoundsException {
+		return getGradientVals(indexX, indexY)[1];
+	}
+
+	/**
+	 * This function exists for the Scales1D class and Wood1D class.
+	 * 
+	 * @param indexX
+	 *             - The corner that is being dotted with the entered distance on
+	 *            the x-axis as an integer.
+	 * @param indexY
+	 *             - The corner that is being dotted with the entered distance on
+	 *            the y-axis as an integer.
+	 * @return An array of doubles of length two where the first index is the x
+	 *         value and the second index is the y value.
+	 * @throws IndexOutOfBoundsException
+	 *             If the indexes of the vector gradient entered are not an
+	 *             appropriate index.
+	 */
+	protected double[] getGradientVals(int indexX, int indexY) {
+		// Check that the indexes are within bounds of the number of sections.
+		if (indexY < 0 || indexY >= vectorGradients.length) {
+			throw new IndexOutOfBoundsException("Index: at " + indexY
+					+ " is not within bounds of [0," + vectorGradients.length
+					+ ")");
+		}
+		if (indexX < 0 || indexX >= vectorGradients[0].length) {
+			throw new IndexOutOfBoundsException("Index: at " + indexX
+					+ " is not within bounds of [0," + vectorGradients.length
+					+ ")");
+		}
+		return gradientVectorsValues[vectorGradients[indexY][indexX]];
+	}
+
+	@Override
+	public int getWidth() {
+		return width;
+	}
+
+	@Override
+	public int getHeight() {
+		return width;
+	}
+
 }

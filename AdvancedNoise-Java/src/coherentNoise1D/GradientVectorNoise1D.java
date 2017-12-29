@@ -31,16 +31,19 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 	 * the square root of two.
 	 */
 	private double[][] gradientVectorsValues = {
+
 			// + or - 0, 90, 180 degrees
 			{ 1.41421, 0 },
 			{ 0, 1.41421 },
 			{ -1.41421, 0 },
 			{ 0, -1.41421 },
+
 			// + or - 45, 135 degrees
 			{ 1, 1 },
 			{ 1, -1 },
 			{ -1, 1 },
 			{ -1, -1 },
+
 			// + or - 22.5 degrees and 67.5 degrees
 			{ 0.541196, 1.30656 },
 			{ -0.541196, 1.30656 },
@@ -61,6 +64,7 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 			{ 0.785695, -1.17588 }, { -0.785695, -1.17588 },
 			{ 1.17588, 0.785695 }, { -1.17588, 0.785695 },
 			{ 1.17588, -0.785695 }, { -1.17588, -0.785695 }, };
+
 	/**
 	 * An array of integers where each integer maps to a particular gradient
 	 * vector defined in the array of gradient values.
@@ -108,7 +112,7 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 		 * the desired length, adjust the number of sections there actually need
 		 * to be.
 		 */
-		while(length / unitsPerSection >= sections) {
+		while (length / unitsPerSection >= sections) {
 			++sections;
 		}
 		/*
@@ -157,8 +161,8 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 	 *            of the noise as an integer.
 	 * @return The distance from the start of the local section to that point.
 	 * @throws IndexOutOfBoundsException
-	 *             If the entered index is greater than or equal to the length
-	 *             of the noise or if it is less than the starting position.
+	 *             Dependent on
+	 *             {@link GradientVectorNoise1D#getDistanceVector(int)}
 	 */
 	protected double getOpDistanceVector(int x)
 			throws IndexOutOfBoundsException {
@@ -170,7 +174,7 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 	 * 
 	 * @param x
 	 *            Represents an index from the start of the noise as an integer.
-	 * @return The section the noise in in as an integer.
+	 * @return The section the noise is in as an integer.
 	 * @throws IndexOutOfBoundsException
 	 *             If the entered index is greater than or equal to the length
 	 *             of the noise or if it is less than the starting position.
@@ -186,7 +190,8 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 	 * the y distance will only ever be zero only the x distance is needed.
 	 * 
 	 * @param index
-	 *            The corner that is being dotted with the entered distance.
+	 *            The corner that is being dotted with the entered distance as
+	 *            an integer.
 	 * @param x
 	 *            The value of the distance vector in the x direction as a
 	 *            double.
@@ -196,8 +201,8 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 	 *             If the index of the vector gradient entered is not an
 	 *             appropriate index.
 	 * @throws IllegalArgumentException
-	 *             If the values entered for for the x values is outside the
-	 *             bounds of [-1, 1].
+	 *             If the values entered for the x distance vector values is
+	 *             outside the bounds of [-1, 1].
 	 */
 	protected double dotProduct(int index, double x)
 			throws IndexOutOfBoundsException, IllegalArgumentException {
@@ -226,7 +231,6 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 	 * 
 	 * @param x
 	 *            Represents an index from the start of the noise as an integer.
-	 * @return True if x is not the bounds of the noise, false, if not.
 	 * @throws IndexOutOfBoundsException
 	 *             If the index of noise is outside of the bounds of the noise.
 	 */
@@ -241,7 +245,8 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 	 * This function exists for the Scales1D class and Wood1D class.
 	 * 
 	 * @param index
-	 *            The corner that is being dotted with the entered distance.
+	 *            The corner that is being dotted with the entered distance as
+	 *            an integer.
 	 * @return The value of the x of the gradient vector at the corner given.
 	 */
 	protected double getGradientVal(int index) throws IndexOutOfBoundsException {
