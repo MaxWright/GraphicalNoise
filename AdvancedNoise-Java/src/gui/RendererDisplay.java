@@ -141,6 +141,7 @@ public class RendererDisplay extends JComponent {
 					"Dimensions must be between zero and one.");
 		}
 		dimension = val;
+		resetGraphic();
 	}
 
 	/**

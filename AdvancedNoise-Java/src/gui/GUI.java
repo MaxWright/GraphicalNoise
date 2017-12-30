@@ -3,17 +3,22 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
@@ -51,7 +56,6 @@ public class GUI implements ActionListener {
 		// Create the JFrame and set attributes
 		JFrame frame = new JFrame("Graphical Noise Generator");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Noise Generator");
 		frame.setMinimumSize(new Dimension(1500, 1000));
 		frame.setLayout(new BorderLayout());
 
@@ -65,7 +69,17 @@ public class GUI implements ActionListener {
 		frame.add(rgbSliders(), BorderLayout.EAST);
 		frame.add(saveComponents(), BorderLayout.NORTH);
 		frame.add(attributeSliders(), BorderLayout.SOUTH);
-
+		
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		InputStream input = classLoader.getResourceAsStream("gui/resources/icon.png");
+		Image icon = null;
+		try {
+			icon = ImageIO.read(input);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		frame.setIconImage(icon);
 		frame.setVisible(true);
 	}
 
@@ -83,6 +97,7 @@ public class GUI implements ActionListener {
 		/*
 		 * Toggle between 1D and 2D noise.
 		 */
+		panel.add(new JLabel("  Dimension"));
 		JRadioButton oneDim = new JRadioButton("1D");
 		oneDim.setActionCommand("1D");
 		oneDim.setSelected(true);
@@ -101,6 +116,7 @@ public class GUI implements ActionListener {
 		/*
 		 * Define the radio buttons to toggle different noises.
 		 */
+		panel.add(new JLabel("  Noise"));
 		// Perlin
 		JRadioButton perlin = new NoiseRadioButton("Perlin Noise", Noise.PERLIN);
 		perlin.setSelected(true);

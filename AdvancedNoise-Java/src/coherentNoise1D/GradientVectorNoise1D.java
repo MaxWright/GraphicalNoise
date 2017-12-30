@@ -31,19 +31,19 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 	 * the square root of two.
 	 */
 	private double[][] gradientVectorsValues = {
-
+			
 			// + or - 0, 90, 180 degrees
 			{ 1.41421, 0 },
 			{ 0, 1.41421 },
 			{ -1.41421, 0 },
 			{ 0, -1.41421 },
-
+			
 			// + or - 45, 135 degrees
 			{ 1, 1 },
 			{ 1, -1 },
 			{ -1, 1 },
 			{ -1, -1 },
-
+			
 			// + or - 22.5 degrees and 67.5 degrees
 			{ 0.541196, 1.30656 },
 			{ -0.541196, 1.30656 },
@@ -64,6 +64,7 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 			{ 0.785695, -1.17588 }, { -0.785695, -1.17588 },
 			{ 1.17588, 0.785695 }, { -1.17588, 0.785695 },
 			{ 1.17588, -0.785695 }, { -1.17588, -0.785695 }, };
+			
 
 	/**
 	 * An array of integers where each integer maps to a particular gradient

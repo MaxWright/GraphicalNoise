@@ -127,7 +127,7 @@ public abstract class GradientVectorNoise2D extends Noise2D {
 		vectorGradients = new int[sectionsOnHeight][sectionsOnWidth];
 		Random rand = new Random();
 		for (int i = 0; i < sectionsOnHeight; ++i) {
-			for (int j = 0; i < sectionsOnWidth; ++j) {
+			for (int j = 0; j < sectionsOnWidth; ++j) {
 				vectorGradients[i][j] = rand
 						.nextInt(gradientVectorsValues.length);
 			}
@@ -290,16 +290,16 @@ public abstract class GradientVectorNoise2D extends Noise2D {
 	 * the y distance will only ever be zero only the x distance is needed.
 	 * 
 	 * @param indexX
-	 *             - The corner that is being dotted with the entered distance on
+	 *            - The corner that is being dotted with the entered distance on
 	 *            the x-axis as an integer.
 	 * @param indexY
-	 *             - The corner that is being dotted with the entered distance on
+	 *            - The corner that is being dotted with the entered distance on
 	 *            the y-axis as an integer.
 	 * @param x
-	 *             - The value of the distance vector in the x direction as a
+	 *            - The value of the distance vector in the x direction as a
 	 *            double.
 	 * @param y
-	 *             - The value of the distance vector in the y direction as a
+	 *            - The value of the distance vector in the y direction as a
 	 *            double.
 	 * @return A double representing the result of the dot product of the
 	 *         gradient vector at position index and the distance vector.
@@ -344,13 +344,14 @@ public abstract class GradientVectorNoise2D extends Noise2D {
 	}
 
 	/**
-	 * This function exists for the Scales1D class and Wood1D class.
+	 * This function exists in case the normal dot product defined in the class
+	 * is not a good fit for the noise being made.
 	 * 
 	 * @param indexX
-	 *             - The corner that is being dotted with the entered distance on
+	 *            - The corner that is being dotted with the entered distance on
 	 *            the x-axis as an integer.
 	 * @param indexY
-	 *             - The corner that is being dotted with the entered distance on
+	 *            - The corner that is being dotted with the entered distance on
 	 *            the y-axis as an integer.
 	 * @return The value of the x of the gradient vector at the corner given.
 	 * @throws IndexOutOfBoundsException
@@ -364,13 +365,14 @@ public abstract class GradientVectorNoise2D extends Noise2D {
 	}
 
 	/**
-	 * This function exists for the Scales1D class and Wood1D class.
+	 * This function exists in case the normal dot product defined in the class
+	 * is not a good fit for the noise being made.
 	 * 
 	 * @param indexX
-	 *             - The corner that is being dotted with the entered distance on
+	 *            - The corner that is being dotted with the entered distance on
 	 *            the x-axis as an integer.
 	 * @param indexY
-	 *             - The corner that is being dotted with the entered distance on
+	 *            - The corner that is being dotted with the entered distance on
 	 *            the y-axis as an integer.
 	 * @return The value of the y of the gradient vector at the corner given.
 	 * @throws IndexOutOfBoundsException
@@ -384,13 +386,14 @@ public abstract class GradientVectorNoise2D extends Noise2D {
 	}
 
 	/**
-	 * This function exists for the Scales1D class and Wood1D class.
+	 * This function exists in case the normal dot product defined in the class
+	 * is not a good fit for the noise being made.
 	 * 
 	 * @param indexX
-	 *             - The corner that is being dotted with the entered distance on
+	 *            - The corner that is being dotted with the entered distance on
 	 *            the x-axis as an integer.
 	 * @param indexY
-	 *             - The corner that is being dotted with the entered distance on
+	 *            - The corner that is being dotted with the entered distance on
 	 *            the y-axis as an integer.
 	 * @return An array of doubles of length two where the first index is the x
 	 *         value and the second index is the y value.
@@ -398,7 +401,7 @@ public abstract class GradientVectorNoise2D extends Noise2D {
 	 *             If the indexes of the vector gradient entered are not an
 	 *             appropriate index.
 	 */
-	protected double[] getGradientVals(int indexX, int indexY) {
+	protected double[] getGradientVals(int indexX, int indexY) throws IndexOutOfBoundsException {
 		// Check that the indexes are within bounds of the number of sections.
 		if (indexY < 0 || indexY >= vectorGradients.length) {
 			throw new IndexOutOfBoundsException("Index: at " + indexY

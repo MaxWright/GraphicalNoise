@@ -40,21 +40,6 @@ public class Squares1D extends GradientVectorNoise1D {
 		double lhs = dotProduct(x, distance);
 		double rhs = dotProduct(x + 1, (1 - distance));
 		distance = NoiseMath.fade(distance);
-		return interpolate(distance, lhs, rhs);
-	}
-
-	/**
-	 * This function performs the mathematical function of interpolation where
-	 * lhs is the left hand side, rhs is the right hand side, and mu is the
-	 * distance from the left hand side to the point you are trying to find the
-	 * value of.
-	 * 
-	 * @param mu
-	 * @param lhs
-	 * @param rhs
-	 * @return
-	 */
-	private double interpolate(double mu, double lhs, double rhs) {
-		return lhs + mu * (rhs - lhs);
+		return NoiseMath.interpolate(distance, lhs, rhs);
 	}
 }

@@ -29,5 +29,20 @@ public final class NoiseMath {
 	public static double fade(double val) {
 		return val * val * val * (val * ((val * 6) - 15) + 10);
 	}
+	
+	/**
+	 * This function performs the mathematical function of interpolation where
+	 * lhs is the left hand side, rhs is the right hand side, and mu is the
+	 * distance from the left hand side to the point you are trying to find the
+	 * value of.
+	 * 
+	 * @param mu The distance from the left hand side as a double.
+	 * @param lhs The value of the left hand side as a double.
+	 * @param rhs The value of the right hand side as a double.
+	 * @return A double value of the interpolation.
+	 */
+	public static double interpolate(double mu, double lhs, double rhs) {
+		return lhs + mu * (rhs - lhs);
+	}
 
 }
