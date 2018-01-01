@@ -17,7 +17,7 @@ import coherentNoise1D.Perlin1D;
  */
 public class AdvPerlin1D extends AdvGradientVectorNoise1D {
 	/**
-	 * This constructor creates an instance of Advanced Simplex Noise with the
+	 * This constructor creates an instance of Advanced Perlin Noise with the
 	 * entered parameters.
 	 * 
 	 * @param frequency

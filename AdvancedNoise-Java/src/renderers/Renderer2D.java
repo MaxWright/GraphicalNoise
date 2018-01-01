@@ -3,6 +3,13 @@ package renderers;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import advNoise1D.AdvPerlin1D;
+import advNoise2D.AdvPerlin2D;
+import advNoise2D.AdvScales2D;
+import advNoise2D.AdvSimplex2D;
+import advNoise2D.AdvSquares2D;
+import advNoise2D.AdvTriangles2D;
+import advNoise2D.AdvWood2D;
 import coherentNoise2D.Noise2D;
 import coherentNoise2D.Perlin2D;
 import coherentNoise2D.Scales2D;
@@ -83,22 +90,28 @@ public class Renderer2D extends Renderer {
 					super.getFrequency(), super.getLength(), super.getLength());
 			break;
 		case ADV_PERLIN:
-
+			toDraw = new AdvPerlin2D(super.getFrequency(), super.getFrequency(), super.getLength(), super.getLength(),
+					super.getOctaves(), super.getPersistence());
 			break;
 		case ADV_SIMPLEX:
-
+			toDraw = new AdvSimplex2D(super.getFrequency(), super.getFrequency(), super.getLength(), super.getLength(),
+					super.getOctaves(), super.getPersistence());
 			break;
 		case ADV_SCALES:
-
+			toDraw = new AdvScales2D(super.getFrequency(), super.getFrequency(), super.getLength(), super.getLength(),
+					super.getOctaves(), super.getPersistence());
 			break;
 		case ADV_SQUARES:
-
+			toDraw = new AdvSquares2D(super.getFrequency(), super.getFrequency(), super.getLength(), super.getLength(),
+					super.getOctaves(), super.getPersistence());
 			break;
 		case ADV_TRIANGLES:
-
+			toDraw = new AdvTriangles2D(super.getFrequency(), super.getFrequency(), super.getLength(), super.getLength(),
+					super.getOctaves(), super.getPersistence());
 			break;
 		case ADV_WOOD:
-
+			toDraw = new AdvWood2D(super.getFrequency(), super.getFrequency(), super.getLength(), super.getLength(),
+					super.getOctaves(), super.getPersistence());
 			break;
 		}
 	}

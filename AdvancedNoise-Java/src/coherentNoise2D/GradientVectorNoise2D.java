@@ -82,9 +82,9 @@ public abstract class GradientVectorNoise2D extends Noise2D {
 	 * @param sectionsOnHeight
 	 *            The number of sections on the y-axis as an integer.
 	 * @param width
-	 *            The width of the noise.
+	 *            The width of the noise as an integer.
 	 * @param height
-	 *            The height of the noise.
+	 *            The height of the noise as an integer.
 	 * @throws IllegalArgumentException
 	 *             <P>
 	 *             If the width or height is less than or equal to zero.

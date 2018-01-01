@@ -1,5 +1,6 @@
 package advNoise1D;
 
+import utilities.NoiseChecks;
 import coherentNoise1D.GradientVectorNoise1D;
 import coherentNoise1D.Noise1D;
 
@@ -73,12 +74,13 @@ public abstract class AdvGradientVectorNoise1D extends Noise1D {
 	 *             <p>
 	 *             -OR-
 	 *             <p>
-	 *             If the amount of octaves are so high the the frequency will
+	 *             If the amount of octaves are so high that the frequency will
 	 *             exceed the length.
 	 *             <p>
 	 *             -OR-
 	 *             <p>
-	 *             If the persistence equals zero.
+	 *             See
+	 *             {@link utilities.NoiseChecks#checkAttributes(int, double)}
 	 * @extends Noise1D
 	 */
 	AdvGradientVectorNoise1D(int frequency, int length, int octaves,
@@ -95,32 +97,24 @@ public abstract class AdvGradientVectorNoise1D extends Noise1D {
 			throw new IllegalArgumentException(
 					"The frequency must be greater than zero");
 		}
-		if (octaves <= 0) {
-			throw new IllegalArgumentException(
-					"The number of octaves must be greater than zero.");
-		}
+		NoiseChecks.checkAttributes(octaves, persistence);
 		/*
-		 * Find the power value of base two to reach the frequency, add one
-		 * because 2/2 = 1, which is an acceptable value. Each octave determines
-		 * its frequency by dividing the frequency of the last octave by two,
-		 * omitting the first octave.
+		 * Find if the number of octaves is too great for the length of the
+		 * noise.
 		 */
 		if (frequency * Math.pow(2, octaves) > length) {
 			throw new IllegalArgumentException(
 					"The number of octaves is too large for the frequency given.");
 		}
-		if (persistence == 0) {
-			throw new IllegalArgumentException(
-					"The persistance cannot be zero.");
-		}
-
 		noiseOctaves = new GradientVectorNoise1D[octaves];
 		this.persistence = persistence;
 		this.length = length;
 		this.frequency = frequency;
 		this.octaves = octaves;
-		// Calculate the sum of the amplitudes now to avoid overhead later when
-		// finding sums.
+		/*
+		 *  Calculate the sum of the amplitudes now to avoid overhead later when
+		 *  finding sums.
+		 */
 		amplitudeSum = 0;
 		double amplitude = 1;
 		for (int i = 0; i < octaves; ++i) {
@@ -135,7 +129,8 @@ public abstract class AdvGradientVectorNoise1D extends Noise1D {
 	 * 
 	 * @param x
 	 *            The index from the start of the noise as an integer.
-	 * @return The sum of the values of the noise at the octaves in the range of [-1, 1].
+	 * @return The sum of the values of the noise at the octaves in the range of
+	 *         [-1, 1].
 	 * @throws IndexOutOfBoundsException
 	 *             If access an index outside of the noise. -OR- If the array of
 	 *             octaves has not been completely populated.
@@ -153,23 +148,11 @@ public abstract class AdvGradientVectorNoise1D extends Noise1D {
 		double amplitude = 1;
 		// For every octave, calculate the sum.
 		for (int i = 0; i < octaves; ++i) {
-			sum += noiseOctaves[i].getNoise(x) / amplitude;
+			sum += noiseOctaves[i].getNoise(x) * amplitude;
 			// Apply the persistence to the amplitude for the next octave.
 			amplitude *= persistence;
 		}
-		/*
-		 * Doubles are tricky. The absolute value of sum should never be greater
-		 * than the amplitudeSum, but doubles have their own agenda.
-		 */
-		if (sum > amplitudeSum) {
-			amplitudeSum = sum;
-			return 1;
-		} else if (-sum > amplitudeSum) {
-			amplitudeSum = -sum;
-			return -1;
-		} else {
-			return sum / amplitudeSum;
-		}
+		return sum / amplitudeSum;
 	}
 
 	/**
