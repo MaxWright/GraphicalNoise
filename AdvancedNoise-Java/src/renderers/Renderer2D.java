@@ -5,6 +5,11 @@ import java.awt.image.BufferedImage;
 
 import coherentNoise2D.Noise2D;
 import coherentNoise2D.Perlin2D;
+import coherentNoise2D.Scales2D;
+import coherentNoise2D.Simplex2D;
+import coherentNoise2D.Squares2D;
+import coherentNoise2D.Triangles2D;
+import coherentNoise2D.Wood2D;
 
 public class Renderer2D extends Renderer {
 	/**
@@ -58,19 +63,24 @@ public class Renderer2D extends Renderer {
 					super.getFrequency(), super.getLength(), super.getLength());
 			break;
 		case SIMPLEX:
-
+			toDraw = new Simplex2D(super.getFrequency(),
+					super.getFrequency(), super.getLength(), super.getLength());
 			break;
 		case SCALES:
-
+			toDraw = new Scales2D(super.getFrequency(),
+					super.getFrequency(), super.getLength(), super.getLength());
 			break;
 		case SQUARES:
-
+			toDraw = new Squares2D(super.getFrequency(),
+					super.getFrequency(), super.getLength(), super.getLength());
 			break;
 		case TRIANGLES:
-
+			toDraw = new Triangles2D(super.getFrequency(),
+					super.getFrequency(), super.getLength(), super.getLength());
 			break;
 		case WOOD:
-
+			toDraw = new Wood2D(super.getFrequency(),
+					super.getFrequency(), super.getLength(), super.getLength());
 			break;
 		case ADV_PERLIN:
 

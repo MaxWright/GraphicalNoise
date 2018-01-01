@@ -423,7 +423,25 @@ public abstract class GradientVectorNoise2D extends Noise2D {
 
 	@Override
 	public int getHeight() {
-		return width;
+		return height;
+	}
+	
+	/**
+	 * 
+	 * @return The units per section on the x-axis.
+	 * @see {@link #getUnitsPerSectionHeight()}
+	 */
+	protected int getUnitsPerSectionWidth() {
+		return unitsPerSectionWidth;
+	}
+
+	/**
+	 * 
+	 * @return The units per section on the x-axis.
+ * @see {@link #getUnitsPerSectionWidth()}
+	 */
+	protected int getUnitsPerSectionHeight() {
+		return unitsPerSectionHeight;
 	}
 
 }

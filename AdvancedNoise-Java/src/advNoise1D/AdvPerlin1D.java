@@ -55,5 +55,4 @@ public class AdvPerlin1D extends AdvGradientVectorNoise1D {
 		inBounds(x);
 		return getSum(x);
 	}
-
 }

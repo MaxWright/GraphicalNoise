@@ -44,5 +44,49 @@ public final class NoiseMath {
 	public static double interpolate(double mu, double lhs, double rhs) {
 		return lhs + mu * (rhs - lhs);
 	}
+	
+	/**
+	 * The function calculates weight from a distance vector.
+	 * 
+	 * @param toWeight
+	 *            The distance vector value as a double.
+	 * @return Zero or a weighted value as double.
+	 */
+	public static double weight(double toWeightX, double toWeightY) {
+		double toReturn = (0.6 - toWeightX * toWeightX - toWeightY * toWeightY);
+		if (toReturn < 0) {
+			toReturn = 0;
+		}
+		toReturn *= toReturn;
+		toReturn *= toReturn;
+		return toReturn;
+	}
+	
+	/**
+	 * The function is a special version of flooring a double and returning only
+	 * its decimal value, 0, 1, or -1.
+	 * 
+	 * @param toWeight
+	 *            The dot product as a double.
+	 * @return Some value in the range of [-1, 1] as a double.
+	 */
+	public static double specialFloor(double toSpecialFloor) {
+		double dotFloor = Math.floor(toSpecialFloor);
+		if (toSpecialFloor - dotFloor == 0) {
+			if (toSpecialFloor < 0) {
+				return -1;
+			}
+			if (toSpecialFloor > 0) {
+				return 1;
+			}
+			if (toSpecialFloor == 0) {
+				return 0;
+			}
+		}
+		if(toSpecialFloor < 0) {
+			return toSpecialFloor - (dotFloor + 1);
+		}
+		return toSpecialFloor - dotFloor;
+	}
 
 }

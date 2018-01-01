@@ -64,28 +64,7 @@ public class Wood1D extends GradientVectorNoise1D {
 		 * vector.
 		 */
 		double dot = getGradientVal(index) * x;
-		/*
-		 * Get the integer value of the double.
-		 */
-		double dotFloor = Math.floor(dot);
-		/*
-		 * If dot product happened to result as an integer.
-		 */
-		if (dot - dotFloor == 0) {
-			if (dot < 0) {
-				return -1;
-			}
-			if (dot > 0) {
-				return 1;
-			}
-			if (dot == 0) {
-				return 0;
-			}
-		}
-		/*
-		 * Else, only return the decimal value from the dot product.
-		 */
-		return dot - dotFloor;
+		return NoiseMath.specialFloor(dot);
 	}
 
 	

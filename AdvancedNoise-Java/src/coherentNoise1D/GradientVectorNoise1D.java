@@ -37,13 +37,13 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 			{ 0, 1.41421 },
 			{ -1.41421, 0 },
 			{ 0, -1.41421 },
-			
+			 
 			// + or - 45, 135 degrees
 			{ 1, 1 },
 			{ 1, -1 },
 			{ -1, 1 },
 			{ -1, -1 },
-			
+
 			// + or - 22.5 degrees and 67.5 degrees
 			{ 0.541196, 1.30656 },
 			{ -0.541196, 1.30656 },
@@ -64,7 +64,6 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 			{ 0.785695, -1.17588 }, { -0.785695, -1.17588 },
 			{ 1.17588, 0.785695 }, { -1.17588, 0.785695 },
 			{ 1.17588, -0.785695 }, { -1.17588, -0.785695 }, };
-			
 
 	/**
 	 * An array of integers where each integer maps to a particular gradient
@@ -139,8 +138,7 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 	 *            of the noise as an integer.
 	 * @return The distance from the start of the local section to that point.
 	 * @throws IndexOutOfBoundsException
-	 *             If the entered index is greater than or equal to the length
-	 *             of the noise or if it is less than the starting position.
+	 *             Dependent on {@link #inBounds()}
 	 */
 	protected double getDistanceVector(int x) throws IndexOutOfBoundsException {
 		// Check to see if the index is within bounds.
@@ -149,7 +147,7 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 		x -= x / unitsPerSection * unitsPerSection;
 		// Return the distance from the left hand part of the section to that
 		// position.
-		return (double) x / (double) (unitsPerSection - 1);
+		return (double) x / (unitsPerSection - 1);
 	}
 
 	/**
@@ -177,10 +175,10 @@ public abstract class GradientVectorNoise1D extends Noise1D {
 	 *            Represents an index from the start of the noise as an integer.
 	 * @return The section the noise is in as an integer.
 	 * @throws IndexOutOfBoundsException
-	 *             If the entered index is greater than or equal to the length
-	 *             of the noise or if it is less than the starting position.
+	 *             Dependent on
+	 *             {@link GradientVectorNoise1D#getDistanceVector(int)}
 	 */
-	protected int getSection(int x) {
+	protected int getSection(int x) throws IndexOutOfBoundsException {
 		inBounds(x);
 		return x / unitsPerSection;
 	}

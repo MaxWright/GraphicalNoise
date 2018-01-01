@@ -121,11 +121,11 @@ public abstract class AdvGradientVectorNoise1D extends Noise1D {
 		this.octaves = octaves;
 		// Calculate the sum of the amplitudes now to avoid overhead later when
 		// finding sums.
-		amplitudeSum = 1;
+		amplitudeSum = 0;
 		double amplitude = 1;
-		for (int i = 0; i < octaves - 1; ++i) {
-			amplitude *= persistence;
+		for (int i = 0; i < octaves; ++i) {
 			amplitudeSum += amplitude;
+			amplitude *= persistence;
 		}
 	}
 
@@ -135,7 +135,7 @@ public abstract class AdvGradientVectorNoise1D extends Noise1D {
 	 * 
 	 * @param x
 	 *            The index from the start of the noise as an integer.
-	 * @return The sum of the values of the noise at the octaves.
+	 * @return The sum of the values of the noise at the octaves in the range of [-1, 1].
 	 * @throws IndexOutOfBoundsException
 	 *             If access an index outside of the noise. -OR- If the array of
 	 *             octaves has not been completely populated.
@@ -157,7 +157,6 @@ public abstract class AdvGradientVectorNoise1D extends Noise1D {
 			// Apply the persistence to the amplitude for the next octave.
 			amplitude *= persistence;
 		}
-
 		/*
 		 * Doubles are tricky. The absolute value of sum should never be greater
 		 * than the amplitudeSum, but doubles have their own agenda.
