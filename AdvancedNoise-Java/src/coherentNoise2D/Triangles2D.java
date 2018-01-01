@@ -2,8 +2,41 @@ package coherentNoise2D;
 
 import utilities.NoiseMath;
 
+/**
+ * This class defines the getNoise method for Triangles Noise in 2D.
+ * 
+ * @extends GradientVectorNoise2D
+ * 
+ * @abstract
+ * @author Max Wright
+ * @version 1.0
+ * 
+ * @copyright Max Wright, All Rights Reserved
+ * @license LICENSE
+ * 
+ */
 public class Triangles2D extends GradientVectorNoise2D {
 
+	/**
+	 * The constructor for Triangles Noise 2D.
+	 * 
+	 * @param sectionsOnWidth
+	 *            See
+	 *            {@link GradientVectorNoise2D#GradientVectorNoise2D(int, int, int, int) Parent}
+	 * @param sectionsOnHeight
+	 *            See
+	 *            {@link GradientVectorNoise2D#GradientVectorNoise2D(int, int, int, int) Parent}
+	 * @param width
+	 *            See
+	 *            {@link GradientVectorNoise2D#GradientVectorNoise2D(int, int, int, int) Parent}
+	 * @param height
+	 *            See
+	 *            {@link GradientVectorNoise2D#GradientVectorNoise2D(int, int, int, int) Parent}
+	 * @throws IllegalArgumentException
+	 *             See
+	 *             {@link GradientVectorNoise2D#GradientVectorNoise2D(int, int, int, int) Parent}
+     * @extends GradientVectorNoise2D
+	 */
 	public Triangles2D(int sectionsOnWidth, int sectionsOnHeight, int width,
 			int height) throws IllegalArgumentException {
 		super(sectionsOnWidth, sectionsOnHeight, width, height);

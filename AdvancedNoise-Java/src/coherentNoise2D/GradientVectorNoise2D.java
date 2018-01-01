@@ -3,10 +3,10 @@ package coherentNoise2D;
 import java.util.Random;
 
 /**
- * This class provides common functionality between all @D noise styles that
+ * This class provides common functionality between all 2D noise styles that
  * utilize gradient vectors at set intervals in a grid.
  * 
- * @extends Noise1D
+ * @extends Noise2D
  * 
  * @abstract
  * @author Max Wright
@@ -75,6 +75,26 @@ public abstract class GradientVectorNoise2D extends Noise2D {
 	 */
 	private int[][] vectorGradients;
 
+	/**
+	 * 
+	 * @param sectionsOnWidth
+	 *            The number of sections on the x-axis as an integer.
+	 * @param sectionsOnHeight
+	 *            The number of sections on the y-axis as an integer.
+	 * @param width
+	 *            The width of the noise.
+	 * @param height
+	 *            The height of the noise.
+	 * @throws IllegalArgumentException
+	 *             <P>
+	 *             If the width or height is less than or equal to zero.
+	 *             <p>
+	 *             -OR-
+	 *             <p>
+	 *             If the number of sections on the x or y axis is less than or
+	 *             equal to zero of is greater than the length.
+	 * @extends Noise2D
+	 */
 	public GradientVectorNoise2D(int sectionsOnWidth, int sectionsOnHeight,
 			int width, int height) throws IllegalArgumentException {
 		super();
@@ -401,7 +421,8 @@ public abstract class GradientVectorNoise2D extends Noise2D {
 	 *             If the indexes of the vector gradient entered are not an
 	 *             appropriate index.
 	 */
-	protected double[] getGradientVals(int indexX, int indexY) throws IndexOutOfBoundsException {
+	protected double[] getGradientVals(int indexX, int indexY)
+			throws IndexOutOfBoundsException {
 		// Check that the indexes are within bounds of the number of sections.
 		if (indexY < 0 || indexY >= vectorGradients.length) {
 			throw new IndexOutOfBoundsException("Index: at " + indexY
@@ -425,7 +446,7 @@ public abstract class GradientVectorNoise2D extends Noise2D {
 	public int getHeight() {
 		return height;
 	}
-	
+
 	/**
 	 * 
 	 * @return The units per section on the x-axis.
@@ -438,7 +459,7 @@ public abstract class GradientVectorNoise2D extends Noise2D {
 	/**
 	 * 
 	 * @return The units per section on the x-axis.
- * @see {@link #getUnitsPerSectionWidth()}
+	 * @see {@link #getUnitsPerSectionWidth()}
 	 */
 	protected int getUnitsPerSectionHeight() {
 		return unitsPerSectionHeight;
