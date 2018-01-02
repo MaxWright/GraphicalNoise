@@ -1,6 +1,6 @@
 package advNoise1D;
 
-import coherentNoise1D.Squares1D;
+import coherentNoise1D.Wood1D;
 
 /**
  * This class initialize an instance of Wood Noise with the concepts of
@@ -43,7 +43,7 @@ public class AdvWood1D extends AdvGradientVectorNoise1D {
 	protected void populateArray() {
 		int tempFrequency = super.getFrequency();
 		for (int i = 0; i < super.getOctaves(); ++i) {
-			Squares1D temp = new Squares1D(tempFrequency, super.getSize());
+			Wood1D temp = new Wood1D(tempFrequency, super.getSize());
 			populateNextIndex(temp);
 			tempFrequency *= 2;
 		}

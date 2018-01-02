@@ -35,7 +35,7 @@ public class Renderer1D extends Renderer {
 	 * The noise selected to be rendered as a Noise1D object, utilizing
 	 * inheritance.
 	 */
-	Noise1D toDraw = new Perlin1D(10, 1000);
+	private Noise1D toDraw = new Perlin1D(10, 1000);
 
 	/**
 	 * 

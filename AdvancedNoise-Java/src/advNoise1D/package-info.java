@@ -1,5 +1,5 @@
 /**
- * This packages defined functionality for a variety of styles of one dimension noise 
+ * This packages defined functionality for a variety of styles of one dimensional noise 
  * using the concepts of frequency, octaves, and persistence.
  * 
  * @author Max Wright
