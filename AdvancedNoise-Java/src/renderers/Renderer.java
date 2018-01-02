@@ -149,6 +149,10 @@ public abstract class Renderer {
 			throw new IllegalArgumentException(
 					"The scale value must be in the range of [-1, 1].");
 		}
+		/*
+		return new Color((int) (red + red * scale), (int) (green + green
+				* scale), (int) (blue + blue * scale));
+		*/
 		return new Color((int) (red + red * scale), (int) (green + green
 				* scale), (int) (blue + blue * scale));
 	}

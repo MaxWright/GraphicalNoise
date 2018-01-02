@@ -3,7 +3,6 @@ package renderers;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import advNoise1D.AdvPerlin1D;
 import advNoise2D.AdvPerlin2D;
 import advNoise2D.AdvScales2D;
 import advNoise2D.AdvSimplex2D;

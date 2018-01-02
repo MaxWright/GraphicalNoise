@@ -37,6 +37,10 @@ public class Simplex1D extends GradientVectorNoise1D {
 		double lhs = dotProduct(x, distance) * weight(distance);
 		double rhs = dotProduct(x + 1, -(1 - distance))
 				* weight(-(1 - distance));
+		/*
+		 * In testing, the constant 47 is the highest whole number available as a
+		 * scalar that does not throw an error.
+		 */
 		return (lhs + rhs) * 47;
 	}
 

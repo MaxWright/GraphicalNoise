@@ -88,6 +88,9 @@ public class Simplex2D extends GradientVectorNoise2D {
 		 *  Sense the thirdCorner is initialized at zero, the case of x == vertexY does not have to specified.
 		 */
 
+		/*
+		 * It does not do what you think it does. I don't know why it works.
+		 */
 		return (topRightDot + bottomLeftDot + thirdCorner) / 3 * 100;
 	}
 
