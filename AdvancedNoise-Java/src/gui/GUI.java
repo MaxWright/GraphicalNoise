@@ -52,7 +52,7 @@ public class GUI implements ActionListener {
 	 */
 	public GUI() {
 		// Create the JFrame and set attributes
-		JFrame frame = new JFrame("Graphical Noise Generator");
+		JFrame frame = new JFrame("Graphical Noise Generator 1.0.0");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setMinimumSize(new Dimension(1500, 1000));
 		frame.setLayout(new BorderLayout());
