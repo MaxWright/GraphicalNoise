@@ -1,8 +1,9 @@
-/main/
-/gui/
-/coherentNoise1D/
 /advNoise1D/
+/advNoise2D/
+/coherentNoise1D/
 /coherentNoise2D/
+/gui/
+/guiFX/
+/main/
 /renderers/
 /utilities/
-/advNoise2D/

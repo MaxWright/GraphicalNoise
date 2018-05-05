@@ -11,7 +11,9 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -178,6 +180,96 @@ public class GUI extends Application {
 		return scene;
 	}
 	
+	private Image getCatImage() throws NullPointerException {
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		InputStream input = classLoader.getResourceAsStream("guiFX/cat.jpg");
+		Image image = new Image(input);
+		return image;
+	}
+	
+	private ImageView getCatImageView() throws NullPointerException {
+		ImageView imageView = new ImageView(getCatImage());
+		return imageView;
+	}
+	
+	public Scene img_padding_example() {
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		InputStream input = classLoader.getResourceAsStream("guiFX/cat.jpg");
+		Image image = null;
+		HBox hBox = null;
+		try {
+			image = new Image(input);
+			ImageView imageView1 = new ImageView(image);
+			ImageView imageView2 = new ImageView(image);
+			ImageView imageView3 = new ImageView(image);
+			hBox = new HBox(10, imageView1, imageView2, imageView3);
+			hBox.setPadding(new Insets(30));
+		} catch (NullPointerException e) {
+			hBox = error("Img not found");
+		} 
+
+		hBox.setAlignment(Pos.CENTER);
+		
+		Scene scene = new Scene(hBox);
+		
+		return scene;
+	}
+	
+	private GridPane getCatGrid() {
+		GridPane gridpane = new GridPane();
+
+		//           what               x  y
+		gridpane.add(getCatImageView(), 0, 0);
+		gridpane.add(getCatImageView(), 1, 0);
+		gridpane.add(getCatImageView(), 1, 1);
+		gridpane.add(getCatImageView(), 0, 1);
+		return gridpane;
+	}
+	
+	public Scene grid_layout() {
+		GridPane gridpane = getCatGrid();
+		
+		Scene scene = new Scene(gridpane);
+		
+		return scene;
+	}
+	
+	public Scene grid_layout_debug() {
+		GridPane gridpane = getCatGrid();
+		
+		gridpane.setGridLinesVisible(true);
+		
+		Scene scene = new Scene(gridpane);
+		
+		return scene;
+	}
+
+	public Scene grid_layout_gaps() {
+		GridPane gridpane = getCatGrid();
+		
+		//gridpane.setGridLinesVisible(true);
+	
+		gridpane.setVgap(10.5);
+		gridpane.setHgap(20);
+		gridpane.setPadding(new Insets(30));
+		Scene scene = new Scene(gridpane);
+		
+		return scene;
+	}
+	
+	public Scene grid_of_box() {
+		GridPane cats = getCatGrid();
+		VBox vBox = vBox_Generator();
+		GridPane gridpane = new GridPane();
+		
+		gridpane.add(cats, 0, 1);
+		gridpane.add(vBox, 1, 1);
+		
+		Scene scene = new Scene(gridpane);
+		
+		return scene;
+	}
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Graphical Noise");
@@ -187,8 +279,12 @@ public class GUI extends Application {
 		//primaryStage.setScene( vBox_Alignment_Example(Pos.CENTER));
 		//primaryStage.setScene( hBox_Alignment_Example(Pos.BOTTOM_CENTER));
 		//primaryStage.setScene( img_http_example() );
-		primaryStage.setScene( img_scale_example() );
-		
+		//primaryStage.setScene( img_scale_example() );
+		//primaryStage.setScene( img_padding_example() );
+		//primaryStage.setScene(grid_layout());
+		//primaryStage.setScene(grid_layout_debug());
+		//primaryStage.setScene(grid_layout_gaps());
+		primaryStage.setScene(grid_of_box());
 		primaryStage.show();
 		
 	}
