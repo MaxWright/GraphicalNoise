@@ -1,5 +1,6 @@
 package guiFX;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,6 +12,8 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
@@ -270,6 +273,27 @@ public class GUI extends Application {
 		return scene;
 	}
 	
+	Label lbl_1;
+	public Scene buttonExample() {
+		lbl_1 = new Label("Click the  button");
+		Button btn_1 = new Button("Click me");
+		btn_1.setOnAction(new ButtonClickHandler());
+		VBox vbox = new VBox(10, lbl_1, btn_1);
+		
+		Scene scene = new Scene(vbox, 300, 100);
+		return scene;
+	}
+	
+	class ButtonClickHandler implements EventHandler<ActionEvent> {
+
+		@Override
+		public void handle(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			lbl_1.setText("You clicked the button");
+		}
+		
+	}
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Graphical Noise");
@@ -284,7 +308,8 @@ public class GUI extends Application {
 		//primaryStage.setScene(grid_layout());
 		//primaryStage.setScene(grid_layout_debug());
 		//primaryStage.setScene(grid_layout_gaps());
-		primaryStage.setScene(grid_of_box());
+		//primaryStage.setScene(grid_of_box());
+		primaryStage.setScene(buttonExample());
 		primaryStage.show();
 		
 	}
