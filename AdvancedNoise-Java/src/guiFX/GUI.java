@@ -3,23 +3,52 @@ package guiFX;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.Glow;
+import javafx.scene.effect.InnerShadow;
+import javafx.scene.effect.Reflection;
+import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.FillTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
+import javafx.animation.StrokeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,8 +60,24 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Polyline;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class GUI extends Application {
 
@@ -210,7 +255,7 @@ public class GUI extends Application {
 		ImageView imageView = new ImageView(getImage(src));
 		return imageView;
 	}
-	
+
 	private ImageView getCatImageView() throws NullPointerException {
 		ImageView imageView = new ImageView(getCatImage());
 		return imageView;
@@ -624,7 +669,7 @@ public class GUI extends Application {
 
 		return scene;
 	}
-	
+
 	public Scene listViewInExample3() {
 
 		catListView = new ListView<>();
@@ -677,21 +722,22 @@ public class GUI extends Application {
 
 		return scene;
 	}
-	
+
 	private ListView<ImageView> catListImageView;
+
 	public Scene listViewInExample5() {
 		ImageView catView1 = getCatImageView();
 		catView1.setPreserveRatio(true);
 		catView1.setFitWidth(200);
-		
+
 		ImageView catView2 = getImageView("guiFX/cat2.jpg");
 		catView2.setPreserveRatio(true);
 		catView2.setFitWidth(200);
-		
+
 		ImageView catView3 = getImageView("guiFX/cat3.jpg");
 		catView3.setPreserveRatio(true);
 		catView3.setFitWidth(200);
-		
+
 		catListImageView = new ListView<ImageView>();
 		catListImageView.getItems().addAll(catView1, catView2, catView3);
 		catListImageView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -703,10 +749,10 @@ public class GUI extends Application {
 
 		return scene;
 	}
-	
-	private String[] cat_array = {"Cat 1", "Cat 2", "Cat 3", "Cat 4"};
+
+	private String[] cat_array = { "Cat 1", "Cat 2", "Cat 3", "Cat 4" };
 	private ArrayList<String> cat_arraylist;
-	
+
 	private void initCatArrayList() {
 		cat_arraylist = new ArrayList<String>();
 		cat_arraylist.add("Cat 1");
@@ -714,64 +760,739 @@ public class GUI extends Application {
 		cat_arraylist.add("Cat 3");
 		cat_arraylist.add("Cat 4");
 	}
-	
+
 	private ObservableList<String> getObservableListOfCats() {
 		initCatArrayList();
 		ObservableList<String> strList = FXCollections.observableArrayList(cat_arraylist);
 		return strList;
 	}
-	
+
 	private ArrayList<ImageView> cat_img_arraylist;
+
 	private void initCatImgArrayList() {
 		cat_img_arraylist = new ArrayList<ImageView>();
 		ImageView catView1 = getCatImageView();
 		catView1.setPreserveRatio(true);
 		catView1.setFitWidth(200);
-		
+
 		ImageView catView2 = getImageView("guiFX/cat2.jpg");
 		catView2.setPreserveRatio(true);
 		catView2.setFitWidth(200);
-		
+
 		ImageView catView3 = getImageView("guiFX/cat3.jpg");
 		catView3.setPreserveRatio(true);
 		catView3.setFitWidth(200);
-		
+
 		cat_img_arraylist.add(catView1);
 		cat_img_arraylist.add(catView2);
 		cat_img_arraylist.add(catView3);
 	}
-	
+
 	private ObservableList<ImageView> getObservableListOfCatImages() {
 		initCatImgArrayList();
 		ObservableList<ImageView> strList = FXCollections.observableArrayList(cat_img_arraylist);
 		return strList;
 	}
-	
+
 	public Scene comboBoxExample1() {
-		ComboBox<String> cbox_cats = new ComboBox<String>(getObservableListOfCats() );
-		
+		ComboBox<String> cbox_cats = new ComboBox<String>(getObservableListOfCats());
+
 		VBox vbox = new VBox(cbox_cats);
 		Scene scene = new Scene(vbox, 500, 500);
 
 		return scene;
 	}
-	
-	// Bug here somewhere. Does not like repainting the selected image after selection in dropdown menu.
+
+	// Bug here somewhere. Does not like repainting the selected image after
+	// selection in dropdown menu.
 	public Scene comboBoxExample2() {
-		
-		ComboBox<ImageView> cbox_cats = new ComboBox<ImageView>( getObservableListOfCatImages() );
+
+		ComboBox<ImageView> cbox_cats = new ComboBox<ImageView>(getObservableListOfCatImages());
 		ImageView selected = getCatImageView();
 
 		cbox_cats.setOnAction(event -> {
-			
+			selected.setImage(cbox_cats.getValue().getImage());
 		});
-		
+
 		VBox vbox = new VBox(cbox_cats, selected);
 		Scene scene = new Scene(vbox, 500, 500);
 
 		return scene;
 	}
+
+	public Scene comboBoxExample3() {
+
+		ComboBox<String> cbox = new ComboBox<String>();
+		cbox.setEditable(true);
+		cbox.getItems().addAll("England", "Scotland", "Ireland", "Wales");
+		VBox vbox = new VBox(cbox);
+
+		Scene scene = new Scene(vbox, 500, 500);
+
+		return scene;
+
+	}
+
+	TextField sliderout;
+
+	public Scene sliderExample1() {
+
+		sliderout = new TextField();
+		Slider hslider = new Slider(0.0, 50.0, 25);
+		hslider.setShowTickMarks(true);
+		hslider.setMajorTickUnit(10);
+		hslider.setMinorTickCount(5);
+		hslider.setShowTickLabels(true);
+		hslider.setPrefWidth(300.0);
+
+		hslider.valueProperty().addListener((observable, oldvalue, newvalue) -> {
+			double val = hslider.getValue();
+			sliderout.setText("" + val);
+		});
+
+		Slider vslider = new Slider(-1.0, 1.0, 0.0);
+		vslider.setOrientation(Orientation.VERTICAL);
+		vslider.setShowTickMarks(true);
+		vslider.setMajorTickUnit(0.25);
+		vslider.setMinorTickCount(5);
+		vslider.setShowTickLabels(true);
+		vslider.setPrefHeight(300.0);
+
+		vslider.valueProperty().addListener((observable, oldvalue, newvalue) -> {
+			double val = vslider.getValue();
+			sliderout.setText("" + val);
+		});
+
+		VBox vbox = new VBox(hslider, sliderout, vslider);
+		Scene scene = new Scene(vbox, 500, 500);
+
+		return scene;
+	}
+
+	public Scene textAreaExample1() {
+		TextArea textarea = new TextArea("Initial sentence");
+		textarea.setPrefColumnCount(80);
+		textarea.setPrefRowCount(100);
+
+		VBox vbox = new VBox(textarea);
+
+		Scene scene = new Scene(vbox, 500, 500);
+
+		return scene;
+	}
+
+	Menu fileMenu;
+	Menu textMenu;
+	RadioMenuItem blackItem;
+	RadioMenuItem redItem;
+	RadioMenuItem greenItem;
+	CheckMenuItem visibleItem;
+	Label out;
+
+	public void menuExample1(Stage primaryStage) {
+
+		MenuBar menuBar = new MenuBar();
+		out = new Label("Color");
+
+		buildFileMenu(primaryStage);
+		buildTextMenu();
+		menuBar.getMenus().add(fileMenu);
+		menuBar.getMenus().add(textMenu);
+
+		BorderPane borderPane = new BorderPane();
+		borderPane.setTop(menuBar);
+		borderPane.setBottom(out);
+		Scene scene = new Scene(borderPane, 500, 500);
+		primaryStage.setScene(scene);
+	}
+
+	private void buildFileMenu(Stage primaryStage) {
+		fileMenu = new Menu("_File");
+		MenuItem exitItem = new MenuItem("E_xit");
+		fileMenu.getItems().add(exitItem);
+		exitItem.setOnAction(event -> {
+			primaryStage.close();
+		});
+	}
+
+	private void buildTextMenu() {
+		textMenu = new Menu("Text");
+
+		blackItem = new RadioMenuItem("Black");
+		redItem = new RadioMenuItem("Red");
+		greenItem = new RadioMenuItem("Green");
+		visibleItem = new CheckMenuItem("Visible");
+
+		blackItem.setSelected(true);
+		visibleItem.setSelected(true);
+
+		ToggleGroup textToggleGroup = new ToggleGroup();
+		blackItem.setToggleGroup(textToggleGroup);
+		redItem.setToggleGroup(textToggleGroup);
+		greenItem.setToggleGroup(textToggleGroup);
+
+		blackItem.setOnAction(event -> {
+			out.setStyle("-fx-text-fill: black");
+		});
+		redItem.setOnAction(event -> {
+			out.setStyle("-fx-text-fill: red");
+		});
+		greenItem.setOnAction(event -> {
+			out.setStyle("-fx-text-fill: green");
+		});
+
+		visibleItem.setOnAction(event -> {
+			if (out.isVisible()) {
+				out.setVisible(false);
+			} else {
+				out.setVisible(true);
+			}
+		});
+
+		textMenu.getItems().add(blackItem);
+		textMenu.getItems().add(redItem);
+		textMenu.getItems().add(greenItem);
+		textMenu.getItems().add(new SeparatorMenuItem());
+		textMenu.getItems().add(visibleItem);
+	}
+
+	public void fileGUI(Stage primaryStage) {
+		out = new Label("Color");
+		FileChooser fileChooser = new FileChooser();
+		File selectedFile = fileChooser.showOpenDialog(primaryStage);
+		if (selectedFile != null) {
+			String filename = selectedFile.getPath();
+			out.setText("You selected: " + filename);
+		}
+
+		BorderPane borderPane = new BorderPane();
+		borderPane.setCenter(out);
+		Scene scene = new Scene(borderPane, 500, 500);
+		primaryStage.setScene(scene);
+	}
+
+	public Scene consoleDebugExample() {
+
+		ComboBox<ImageView> cbox_cats = new ComboBox<ImageView>(getObservableListOfCatImages());
+		ImageView selected = getCatImageView();
+
+		cbox_cats.setOnAction(event -> {
+			selected.setImage(cbox_cats.getValue().getImage());
+
+			// Debug
+			String name = cbox_cats.getValue().getImage().toString();
+			System.out.println("Combo box selected: " + name);
+		});
+
+		VBox vbox = new VBox(cbox_cats, selected);
+		Scene scene = new Scene(vbox, 500, 500);
+
+		return scene;
+	}
+
+	public Scene drawingShapesExample() {
+
+		Line line1 = new Line();
+		line1.setStartX(0);
+		line1.setStartY(0);
+		line1.setStartX(200);
+		line1.setStartY(200);
+
+		Line line2 = new Line(80, 120, 400, 520);
+		line2.setStroke(Color.RED);
+
+		Circle circle = new Circle(200, 200, 150);
+		Circle circle2 = new Circle(200, 200, 75, Color.RED);
+		Circle circle3 = new Circle(100, 100, 75);
+		circle3.setStroke(Color.AQUA);
+		circle3.setFill(Color.BISQUE);
+
+		Rectangle rect = new Rectangle(100, 100, 10, 50);
+		rect.setFill(Color.PLUM);
+
+		Ellipse ellipse = new Ellipse(320, 240, 140, 100);
+
+		Pane pane = new Pane(circle, circle2, circle3, ellipse, rect, line1, line2);
+
+		Scene scene = new Scene(pane, 500, 550);
+
+		return scene;
+	}
+
+	public Scene drawingShapesExample2() {
+
+		Arc arc1 = new Arc(100, 100, 50, 50, 50, 50);
+		arc1.setFill(Color.RED);
+		arc1.setType(ArcType.ROUND);
+
+		Arc arc2 = new Arc(200, 100, 50, 50, 50, 50);
+		arc2.setFill(Color.RED);
+		arc2.setType(ArcType.CHORD);
+
+		Arc arc3 = new Arc(300, 100, 50, 50, 100, 100);
+		arc3.setFill(Color.RED);
+		arc3.setType(ArcType.OPEN); // Bug?
+
+		Pane pane = new Pane(arc1, arc2, arc3);
+
+		Scene scene = new Scene(pane, 500, 550);
+
+		return scene;
+	}
+
+	public Scene drawingShapesExample3() {
+
+		Polygon poly1 = new Polygon(100, 20, 20, 100, 100, 100);
+
+		Polyline polyline1 = new Polyline(150, 150, 200, 250, 175, 125, 125, 75);
+		Pane pane = new Pane(poly1, polyline1);
+
+		Scene scene = new Scene(pane, 500, 550);
+
+		return scene;
+	}
+
+	public Scene drawingText() {
+
+		Text text1 = new Text(10, 10, "Hello World!");
+
+		Pane pane = new Pane(text1);
+		Scene scene = new Scene(pane, 500, 550);
+
+		return scene;
+	}
+
+	public Scene rotateExample1() {
+
+		Polygon poly1 = new Polygon(100, 20, 20, 100, 100, 100);
+
+		Polyline polyline1 = new Polyline(150, 150, 200, 250, 175, 125, 125, 75);
+		Pane pane = new Pane(poly1, polyline1);
+		pane.setRotate(45);
+		Scene scene = new Scene(pane, 500, 550);
+
+		return scene;
+	}
+
+	public Scene scaleExample1() {
+
+		Polygon poly1 = new Polygon(100, 20, 20, 100, 100, 100);
+
+		Polyline polyline1 = new Polyline(150, 150, 200, 250, 175, 125, 125, 75);
+		Pane pane = new Pane(poly1, polyline1);
+		pane.setScaleX(1.5);
+		pane.setScaleY(.75);
+		Scene scene = new Scene(pane, 500, 550);
+
+		return scene;
+	}
+
+	public Scene translateTransition1() {
+		Polygon poly1 = new Polygon(100, 20, 20, 100, 100, 100);
+		TranslateTransition ttrans = new TranslateTransition(new Duration(3000), poly1);
+		ttrans.setFromX(0);
+		ttrans.setFromY(50);
+		ttrans.setToX(100);
+		ttrans.setToY(50);
+		ttrans.play();
+		Pane pane = new Pane(poly1);
+
+		Scene scene = new Scene(pane, 500, 550);
+
+		return scene;
+	}
+
+	public Scene rotateTransition1() {
+		Polygon poly1 = new Polygon(100, 20, 20, 100, 100, 100);
+
+		RotateTransition rtrans = new RotateTransition(new Duration(5000), poly1);
+
+		rtrans.setFromAngle(0.0);
+		rtrans.setToAngle(360);
+		rtrans.play();
+		rtrans.setOnFinished(event -> {
+			rtrans.play();
+		});
+		Pane pane = new Pane(poly1);
+
+		Scene scene = new Scene(pane, 500, 550);
+
+		return scene;
+	}
+
+	public Scene scaleTransition1() {
+		Circle circ = new Circle(200, 200, 50);
+
+		ScaleTransition strans = new ScaleTransition(new Duration(5000), circ);
+		strans.setFromX(1.0);
+		strans.setFromY(1.0);
+		strans.setToX(2.0);
+		strans.setToY(2.0);
+		strans.play();
+
+		Pane pane = new Pane(circ);
+		Scene scene = new Scene(pane, 500, 550);
+
+		return scene;
+	}
+
+	public Scene strokeTransition1() {
+		Circle circ = new Circle(200, 200, 50);
+
+		StrokeTransition strans = new StrokeTransition(new Duration(5000), circ, Color.RED, Color.AZURE);
+		strans.play();
+
+		Pane pane = new Pane(circ);
+		Scene scene = new Scene(pane, 500, 550);
+
+		return scene;
+	}
+
+	public Scene fillTransition1() {
+		Circle circ = new Circle(200, 200, 50);
+
+		FillTransition ftrans = new FillTransition(new Duration(5000), circ, Color.RED, Color.BLUE);
+		ftrans.play();
+
+		Pane pane = new Pane(circ);
+		Scene scene = new Scene(pane, 500, 550);
+
+		return scene;
+	}
+
+	public Scene fadeTransition1() {
+		ImageView cat = getCatImageView();
+
+		FadeTransition ftrans = new FadeTransition(new Duration(5000), cat);
+		ftrans.setFromValue(1.0);
+		ftrans.setToValue(0.1);
+		ftrans.play();
+
+		Pane pane = new Pane(cat);
+		Scene scene = new Scene(pane, 500, 550);
+
+		return scene;
+	}
+
+	public Scene interpolate1() {
+		ImageView cat = getCatImageView();
+
+		FadeTransition ftrans = new FadeTransition(new Duration(5000), cat);
+		ftrans.setFromValue(1.0);
+		ftrans.setToValue(0.1);
+		// EASE_BOTH
+		// EASE_IN
+		// EASE_OUT
+		// DISCRETE
+		// LINEAR
+		ftrans.setInterpolator(Interpolator.EASE_BOTH);
+		ftrans.play();
+
+		Pane pane = new Pane(cat);
+		Scene scene = new Scene(pane, 500, 550);
+
+		return scene;
+	}
+
+	public Scene dropShadow() {
+		Circle circ = new Circle(200, 200, 50);
+
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setBlurType(BlurType.THREE_PASS_BOX);
+		dropShadow.setRadius(50);
+		// dropShadow.setOffsetX(20);
+		// dropShadow.setOffsetY(10);
+		circ.setEffect(dropShadow);
+
+		Pane pane = new Pane(circ);
+		Scene scene = new Scene(pane, 500, 550);
+
+		return scene;
+	}
+
+	public Scene innerShadow() {
+		Circle circ = new Circle(200, 200, 50);
+
+		circ.setFill(Color.RED);
+		InnerShadow innerShadow = new InnerShadow();
+		innerShadow.setBlurType(BlurType.THREE_PASS_BOX);
+		innerShadow.setRadius(40);
+		innerShadow.setOffsetX(10);
+		innerShadow.setOffsetY(10);
+		// innerShadow.setColor(Color.PINK);
+		circ.setEffect(innerShadow);
+
+		Pane pane = new Pane(circ);
+		Scene scene = new Scene(pane, 500, 550);
+
+		return scene;
+	}
+
+	public Scene colorAdjust() {
+		ImageView base = getCatImageView();
+		ImageView cat = getCatImageView();
+
+		ColorAdjust colorAdjust = new ColorAdjust();
+		colorAdjust.setHue(0.25);
+		colorAdjust.setSaturation(0.5);
+		colorAdjust.setBrightness(-0.25);
+		colorAdjust.setContrast(0.1);
+
+		cat.setEffect(colorAdjust);
+
+		VBox vbox = new VBox(base, cat);
+		Scene scene = new Scene(vbox, 500, 550);
+
+		return scene;
+	}
+
+	public Scene boxBlur1() {
+		BoxBlur bblur = new BoxBlur();
+		ImageView cat = getCatImageView();
+		cat.setEffect(bblur);
+		VBox vbox = new VBox(cat);
+		Scene scene = new Scene(vbox, 500, 550);
+
+		return scene;
+	}
+
+	public Scene boxBlur2() {
+		BoxBlur bblur = new BoxBlur();
+		bblur.setWidth(10);
+		bblur.setHeight(10);
+		ImageView cat = getCatImageView();
+		cat.setEffect(bblur);
+		VBox vbox = new VBox(cat);
+		Scene scene = new Scene(vbox, 500, 550);
+
+		return scene;
+	}
+
+	public Scene boxBlur3() {
+		BoxBlur bblur = new BoxBlur();
+		bblur.setWidth(10);
+		bblur.setHeight(10);
+		bblur.setIterations(3);
+		ImageView cat = getCatImageView();
+		cat.setEffect(bblur);
+		VBox vbox = new VBox(cat);
+		Scene scene = new Scene(vbox, 500, 550);
+
+		return scene;
+	}
+
+	public Scene gaussianBlur() {
+		GaussianBlur gblur = new GaussianBlur();
+		gblur.setRadius(20.0);
+		ImageView cat = getCatImageView();
+		cat.setEffect(gblur);
+		VBox vbox = new VBox(cat);
+		Scene scene = new Scene(vbox, 500, 550);
+
+		return scene;
+	}
+
+	public Scene sepiaTone() {
+		SepiaTone stone = new SepiaTone();
+
+		ImageView cat = getCatImageView();
+		cat.setEffect(stone);
+		VBox vbox = new VBox(cat);
+		Scene scene = new Scene(vbox, 500, 550);
+
+		return scene;
+	}
+
+	public Scene glow() {
+		Glow glow = new Glow();
+		glow.setLevel(0.5);
+		ImageView cat = getCatImageView();
+		cat.setEffect(glow);
+		VBox vbox = new VBox(cat);
+		Scene scene = new Scene(vbox, 500, 550);
+
+		return scene;
+	}
+
+	public Scene reflection1() {
+		Reflection refl = new Reflection();
+		ImageView cat = getCatImageView();
+		cat.setEffect(refl);
+		VBox vbox = new VBox(cat);
+		Scene scene = new Scene(vbox, 500, 550);
+
+		return scene;
+	}
+
+	public Scene reflection2() {
+		Reflection refl = new Reflection();
+		refl.setTopOffset(10.0);
+		refl.setFraction(0.25);
+		refl.setTopOpacity(0.5);
+		refl.setBottomOpacity(0.0);
+		ImageView cat = getCatImageView();
+		cat.setEffect(refl);
+		VBox vbox = new VBox(cat);
+		Scene scene = new Scene(vbox, 500, 550);
+
+		return scene;
+	}
+
+	public Scene sound1() {
+
+		File soundFile = new File("src/guiFX/song.mp3");
+		Media media = new Media(soundFile.toURI().toString());
+		MediaPlayer player = new MediaPlayer(media);
+		player.setAutoPlay(true);
+		ImageView cat = getCatImageView();
+		VBox vbox = new VBox(cat);
+		Scene scene = new Scene(vbox, 500, 550);
+
+		return scene;
+	}
+
+	public Scene video1() {
+
+		File videoFile = new File("src/guiFX/video.mp4");
+		Media media = new Media(videoFile.toURI().toString());
+		MediaPlayer player = new MediaPlayer(media);
+		player.setAutoPlay(true);
+
+		MediaView view = new MediaView(player);
+		view.setFitWidth(400);
+		view.setFitHeight(500);
+		view.setRotate(90);
+
+		VBox vbox = new VBox(view);
+		vbox.setAlignment(Pos.CENTER);
+		Scene scene = new Scene(vbox, 500, 550);
+
+		return scene;
+	}
+
+	boolean pressed;
+	public Scene keyEvent() {
+		File videoFile = new File("src/guiFX/video.mp4");
+		Media media = new Media(videoFile.toURI().toString());
+		MediaPlayer player = new MediaPlayer(media);
+		player.setAutoPlay(true);
+		player.setOnEndOfMedia(() -> {
+			player.stop();
+			player.play();
+		});
+
+		MediaView view = new MediaView(player);
+		view.setFitWidth(400);
+		view.setFitHeight(500);
+		view.setRotate(90);
+
+		VBox vbox = new VBox(view);
+		vbox.setAlignment(Pos.CENTER);
+		Scene scene = new Scene(vbox, 500, 550);
+
+		pressed = false;
+		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				if (!pressed) {
+					pressed = true;
+					if (arg0.getCode() == KeyCode.SPACE) {
+						if (player.getStatus() == MediaPlayer.Status.PLAYING) {
+							player.pause();
+						} else {
+							player.play();
+						}
+					} 
+					//System.out.println("Pause/Play");
+
+				}
+			}
+
+		});
+		scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent arg0) {
+				pressed = false;
+			}
+
+		});
+		return scene;
+
+	}
 	
+	public Scene mouseEvent() {
+		out = new Label("Position");
+		File videoFile = new File("src/guiFX/video.mp4");
+		Media media = new Media(videoFile.toURI().toString());
+		MediaPlayer player = new MediaPlayer(media);
+		player.setAutoPlay(true);
+		player.setOnEndOfMedia(() -> {
+			player.stop();
+			player.play();
+		});
+
+		MediaView view = new MediaView(player);
+		view.setFitWidth(400);
+		view.setFitHeight(500);
+		view.setRotate(90);
+
+		HBox hbox = new HBox(view, out);
+		hbox.setAlignment(Pos.CENTER);
+		Scene scene = new Scene(hbox, 500, 550);
+
+		pressed = false;
+		scene.setOnMouseMoved(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+
+				out.setText(event.getX() + " " + event.getY());
+			}
+
+		});
+		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				if (!pressed) {
+					pressed = true;
+						if (player.getStatus() == MediaPlayer.Status.PLAYING) {
+							player.pause();
+						} else {
+							player.play();
+						}
+					//System.out.println("Pause/Play");
+
+				}
+			}
+
+		});
+		scene.setOnMouseReleased(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				pressed = false;
+			}
+
+
+		});
+		scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+
+				out.setText(event.getX() + " " + event.getY());
+			}
+			
+		});
+		return scene;
+
+	}
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Graphical Noise");
@@ -806,7 +1527,54 @@ public class GUI extends Application {
 		// primaryStage.setScene(listViewInExample4());
 		// primaryStage.setScene(listViewInExample5());
 		// primaryStage.setScene(comboBoxExample1() );
-		primaryStage.setScene(comboBoxExample2() );
+		// primaryStage.setScene(comboBoxExample2() );
+		// primaryStage.setScene(comboBoxExample3() );
+		// primaryStage.setScene(sliderExample1());
+		// primaryStage.setScene(textAreaExample1());
+
+		// menuExample1(primaryStage);
+		// fileGUI(primaryStage);
+
+		// primaryStage.setScene( consoleDebugExample() );
+		// primaryStage.setScene(drawingShapesExample());
+		// primaryStage.setScene(drawingShapesExample2());
+		// primaryStage.setScene(drawingShapesExample3());
+		// primaryStage.setScene(drawingText());
+
+		// primaryStage.setScene(rotateExample1());
+		// primaryStage.setScene(scaleExample1());
+		// primaryStage.setScene(translateTransition1());
+		// primaryStage.setScene(rotateTransition1());
+		// primaryStage.setScene(scaleTransition1());
+		// primaryStage.setScene(strokeTransition1());
+		// primaryStage.setScene(fillTransition1());
+		// primaryStage.setScene(fadeTransition1());
+		// primaryStage.setScene( interpolate1());
+		// primaryStage.setScene(dropShadow());
+		// primaryStage.setScene(innerShadow());
+		// primaryStage.setScene(colorAdjust());
+		// primaryStage.setScene(boxBlur1());
+		// primaryStage.setScene(boxBlur2());
+		// primaryStage.setScene(boxBlur3());
+		// primaryStage.setScene(gaussianBlur());
+		// primaryStage.setScene(sepiaTone());
+		// primaryStage.setScene(glow());
+		// primaryStage.setScene(reflection1());
+		// primaryStage.setScene(reflection2());
+		// primaryStage.setScene(sound1());
+		// primaryStage.setScene(video1());
+		// primaryStage.setScene(keyEvent());
+		primaryStage.setScene( mouseEvent() );
+		// primaryStage.setScene();
+		// primaryStage.setScene();
+		// primaryStage.setScene();
+		// primaryStage.setScene();
+		// primaryStage.setScene();
+		// primaryStage.setScene();
+		// primaryStage.setScene();
+		// primaryStage.setScene();
+		// primaryStage.setScene();
+		// primaryStage.setScene();
 		primaryStage.show();
 
 	}
